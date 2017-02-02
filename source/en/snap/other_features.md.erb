@@ -1,0 +1,278 @@
+## Snap: Other Features
+---
+
+##### *The tutorial below will assist you in implementing other features with Snap. If further assistance is required, please contact us at [support@midtrans.com](mailto:support@midtrans.com "email support") or visit our [support page](http://support.midtrans.com "Midtrans Support").*
+---
+
+Currently, Snap provides a few additional features:
+
+1. Choose The Method of Payment
+2. Set Custom Expiration
+
+We also provide additional feature for Credit Card Payment:
+
+1. Installment
+2. BIN Filter
+
+<br>
+
+The following provides tutorials to integrate with these features:
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#payment-options" data-toggle="tab">Choose The Method of Payment</a></li>
+  <li><a href="#custom-expiry" data-toggle="tab">Custom Expiry</a></li>
+  <li><a href="#installment" data-toggle="tab">Installment</a></li>
+  <li><a href="#bin-promo" data-toggle="tab">BIN Filter</a></li>
+</ul>
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="payment-options"><!-- step 1-->
+<!-- One -->
+
+### Choose The Method of Payment ###
+
+On [Snap -- Integration](/en/snap/integration_php.html#step1) section, all available payments for the merchant are activated by default. Under some condition, you might need to display only some of the payment methods available. You need to add this parameter: 
+
+~~~ json
+
+"enabled_payments": ["credit_card", "mandiri_clickpay", "cimb_clicks", 
+    "bca_klikbca", "bca_klikpay", "bri_epay", "telkomsel_cash", "echannel", 
+    "bbm_money", "xl_tunai", "indosat_dompetku", "mandiri_ecash", "permata_va",
+    "bca_va", "other_va", "kioson", "indomaret"]
+
+~~~
+
+An alias refers to a list of payment types. Adding an alias is the equivalent of adding all the payment types it refers to.
+
+Supported aliases:
+
+`bank_transfer` = permata_va, bca_va. <br> 
+`store` = kioson, indomaret.
+
+Example code to use this in php:
+
+~~~ php
+<?php
+include_once('Veritrans.php');
+
+...
+
+$transaction = array(
+    'transaction_details' => array(
+        'order_id' => rand(),
+        'gross_amount' => 10000 // no decimal allowed
+    ),
+    'enabled_payments' => array('credit_card')
+);
+
+...
+
+?>
+~~~
+
+<br>
+The code above will display only credit card payment method on Snap.
+![redirect](snap/other-cc.png){: .img-responsive .img-thumbnail}
+
+</div>
+
+<div class="tab-pane" id="custom-expiry">
+
+### Set Custom Expiry ###
+
+Set Custom Expiry feature enables merchant to set an expiry time of payment for every transaction. Following the test transaction on [integration](/en/snap/integration_php.html#step1), the sample PHP code is:<br />
+
+~~~ php
+<?php
+include_once('Veritrans.php');
+
+...
+
+$transaction = array(
+    'transaction_details' => array(
+        'order_id' => rand(),
+        'gross_amount' => 10000 // no decimal allowed
+    ),
+
+    'expiry' => array (
+      "start_time" => "2015-09-08 11:06:53 +0700",
+      "unit" => "minute",
+      "duration" => 1
+    )
+);
+
+...
+
+?>
+~~~
+
+<br>
+
+| Parameter | Description |
+|---|---|
+| start_time<br>String(255)<br>*(optional)* | Timestamp in `yyyy-MM-dd hh:mm:ss Z` format. If not specified, transaction time will be used as start time (when customer charge) |  
+| duration<br>integer<br>*(required)* | Expiry duration |
+| unit<br>String<br>*(required)* | Expiry unit. Options: `day`, `hour`, `minute` (plural term also accepted) |
+
+</div>
+
+<div class="tab-pane" id="installment">
+
+### Installment ###
+
+#### Online Installment
+
+To activate installment feature, merchant has to make an agreement with the  bank. For online installment, bank will issue special MID for installment. By using this installment MID, the transaction will be converted automatically into installment. Merchant also needs to contact a Midtrans sales representative if the MID for installment is ready. If MID is ready, merchant simply has to add the parameter `installment` during obtain Snap token.
+
+Following the test transaction on [integration](/en/snap/integration_php.html#step1), Example code to use this in php:
+
+~~~ php
+<?php
+include_once('Veritrans.php');
+
+...
+
+$transaction = array(
+    'transaction_details' => array(
+        'order_id' => rand(),
+        'gross_amount' => 10000
+    ),
+
+    'credit_card' => array(
+        'secure' => true,
+        'installment' => array(
+            'required' => true,
+            'terms' => array(
+                'bni' => [6, 12],
+                'mandiri' => [6, 12]
+            )
+        )
+    )
+);
+
+...
+
+?>
+~~~
+
+<br>
+The following figure displays the Snap payment page with online installment feature:
+
+![Snap Installment](snap/other-installment1.png){: .img-responsive .img-thumbnail}
+
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Note:</span>
+  <span class="sr-only">Caution:</span><br>
+  Installment term will show in Snap payment page after customer insert credit card number.
+</div>
+
+<br>
+
+* * *
+
+#### Offline Installment
+
+To allow installment feature with banks which doesn't issue MID Installment, merchant can use offline installment feature. With offline installment feature, the transaction will be charged in full amount and the transaction will be converted into installment later. 
+
+Merchant simply has to add the parameter `installment` during obtain Snap token request with combination bin filter feature. The purpose of bin filter is to limit only certain cards will be allowed to do offline installment based on the agreement between merchant and issuing banks.
+
+Following the test transaction on [integration](/en/snap/integration_php.html#step1), Example code to use this in php:
+
+~~~ php
+<?php
+include_once('Veritrans.php');
+
+...
+
+$transaction = array(
+    'transaction_details' => array(
+        'order_id' => rand(),
+        'gross_amount' => 10000
+    ),
+
+    'credit_card' => array(
+        'secure' => true,
+        'installment' => array(
+            'required' => true,
+            'terms' => array(
+                'offline' => [6, 12] //Offline installment terms
+            )
+        )
+    ),
+    'whitelist_bins' => array(
+        '481111',
+        '410505'
+    )
+);
+
+...
+
+?>
+~~~
+
+<br>
+The following figure displays the Snap payment page with offline installment feature:
+![Snap Installment2](snap/other-installment2.png){: .img-responsive .img-thumbnail}
+
+<br>
+
+* * *
+
+</div>
+<div class="tab-pane" id="bin-promo">
+
+### BIN Filter ###
+
+BIN filter is a feature that allows merchant to advertise bank a promotion according to the credit card issued by the bank. BIN (Bank Identification Number) is the **first 1-6 digit** of a credit card, which identifies the bank that issues the card. A bank generally has more than one BIN.
+
+To use this feature, merchant needs to accumulate the list of BIN that currently receives promotion or simply using issuing bank name. This list of BIN or issuing bank name will then become a transaction parameter `whitelist_bins`. This transaction can only be performed exclusively by the credit card that is included in the BIN list or BIN under particular defined issuing bank.
+
+Following the test transaction on [integration](/en/snap/integration_php.html#step1), the sample PHP code that we can make use of is:<br />
+
+~~~ php
+<?php
+include_once('Veritrans.php');
+
+...
+
+$transaction = array(
+    'transaction_details' => array(
+        'order_id' => rand(),
+        'gross_amount' => 10000
+    ),
+
+    'whitelist_bins' => array(
+        '481111',
+        '411111',
+        'bni'
+    )
+);
+
+...
+
+?>
+~~~
+
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Note:</span>
+  <span class="sr-only">Caution:</span><br>
+  We already populate BIN number for bni, mandiri and cimb. You can add the bank name as whitelist bins value.
+</div>
+
+<br />
+The following figure displays the Snap payment page with BIN Filter feature:
+
+![Snap BIN Error](snap/other-bin2.png){: .img-responsive .img-thumbnail}
+<br>**Invalid card number**, because `481112` not include in whitelist_bins value.
+
+<br>
+
+![Snap BIN Success](snap/other-bin1.png){: .img-responsive .img-thumbnail}
+<br>**Valid card number**, because `481111` include in whitelist_bins value.
+
+<br>
+
+</div>
+</div>

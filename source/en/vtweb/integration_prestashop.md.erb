@@ -1,0 +1,123 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="PHP" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_php.html" do image_tag("/images/php_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Prestashop" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_prestashop.html" do image_tag("/images/prestashop.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Magento" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_magento.html" do image_tag("/images/magento_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Opencart" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_opencart.html" do image_tag("/images/opencart_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Woocommerce" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_woocommerce.html" do image_tag("/images/woocommerce_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Drupal" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_drupal.html" do image_tag("/images/drupal_grey.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="WHMCS" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_whmcs.html" do image_tag("/images/whmcs_gray.png") end %>
+    </div>
+  </div>
+</div>
+
+{::options parse_block_html="true" /}
+
+<div class="tab-content">
+  <div class="tab-pane active">
+### VT-Web Prestashop Integration Steps
+<ol>
+  <li>Plugin Installation</li>
+  <li>Transaction Test</li>
+</ol>
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#prestashop-step1" data-toggle="tab"><span>Step 1</span>Plugin Installation</a></li>
+  <li><a href="#prestashop-step2" data-toggle="tab"><span>Step 2</span>Transaction Test</a></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="prestashop-step1">
+
+#### Requirements
+
+1. An online store with PrestaShop infrastructure. This plugin is tested with PrestaShop version 1.4, 1.5, and 1.6.
+2. PHP minimum version 5.4.
+3. Midtrans plugin for PrestaShop \[ [Github](https://github.com/veritrans/vtweb-prestashop) \| [Zip](https://github.com/veritrans/vtweb-prestashop/archive/master.zip) \].
+
+#### Installation Process
+
+1. Extract the plugin you have previously downloaded and rename folder as **veritranspay**. Then Zip the folder back into veritranspay.zip.
+2. Access your PrestaShop *administrator* page.
+3. Go to menu **Modules-modules**.
+4. Choose *Add a new module*. Upload plugin file **veritranspay.zip**.
+5. Find the previously uploaded Midtrans module and click **install**.
+
+#### Plugin Configuration
+
+In order to configure Midtrans-PrestaShop plug-in:
+
+1. Access your PrestaShop admin page.
+2. Go to **Modules-modules** menu in PrestaShop admin page.
+3. In Veritrans module, click **configure** to enter plugin page.
+4. Insert required fields following the figure below.
+
+    ![Prestashop config](/images/presta00.png){: .img-responsive .img-thumbnail}
+
+5. Login to MAP portal to configure a few options below:
+
+    | URL Role | Redirect URL|
+    |---|---|
+    | Payment Notification URL | http://[your_shop’s_homepage]/index.php?fc=module&module=veritranspay&controller=notification |
+    | Finish Redirect URL | http://[your-site-url]/index.php?fc=module&module=veritranspay&controller=success |
+    | Error Redirect URL | http://[your-site-url]/index.php?fc=module&module=veritranspay&controller=failure |
+    | Unfinish Redirect URL | http://[your-site-url]/index.php?fc=module&module=veritranspay&controller=back |
+
+</div>
+
+<div class="tab-pane" id="prestashop-step2">
+
+1. Perform successful transaction in your online store by inputing a dummy credit card number as followed (Sandbox Mode):
+
+    | Type | Visa |
+    |---|---|
+  | Card Number | 4811 1111 1111 1114 |
+  | CVV | 123 |
+  | Exp. Month | 01 |
+  | Exp. Year | 2020 |
+
+2. Examine a few points below to ensure plugin is installed and performs properly.
+
+    | Check Point | Expected Result | When Unexpected Result Occurs|
+    |---|---|---|
+  | Check order status in PrestaShop back end | Order status turns into **payment accepted** | Check endpoint/payment notification URL setting in MAP |
+  | Merchant receives email notification | Receive notification | Check MAP menu setting - email notification |
+  | Customer receives email notification | Receive notification | Check MAP menu setting - email notification |
+
+    **NOTE:**<br />
+    If the notifications not working well, please use the SEO URL feature from Prestashop. 
+
+    * Click on the preferences menu and choose SEO & URL.
+    * On the SET SHOP URL submenu, fill with your domain configuration.
+
+</div>
+</div>
+  </div>
+</div>

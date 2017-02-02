@@ -1,0 +1,30 @@
+<div class="col-md-4 col-sm-4 hidden-xs">
+  <nav data-spy="affix" data-offset-top="67" data-offset-bottom="500" id="sidebar-scrollspy">
+    <ul class="sidebar-methods nav">
+      <% payment_methods = data.methods_nav.payment_methods %>
+      <% payment_methods.each do |payment_methods| %>
+        <li>
+          <%= link_to payment_methods.name, payment_methods.go_to %>
+          <% if payment_methods.name == 'Charge' %>
+            <ul class="nav first-submenu">
+              <% payment_methods.submenu.each do |submenu| %>
+                <li>
+                  <%= link_to submenu.name, submenu.go_to %>
+                  <% if submenu.links.length > 0 %>
+                    <ul class="nav second-submenu">
+                      <% submenu.links.each do |label| %>
+                        <li>    
+                          <%= link_to label.en, label.link %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>   
+    </ul>
+  </nav>
+</div>

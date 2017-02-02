@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="PHP" data-placement="bottom">
+      <%= link_to "/en/vtweb/integration_php.html" do image_tag("/images/php_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Prestashop" data-placement="bottom">
+      <%= link_to "/en/vtweb/integration_prestashop.html" do image_tag("/images/prestashop_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Magento" data-placement="bottom">
+      <%= link_to "/en/vtweb/integration_magento.html" do image_tag("/images/magento.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Opencart" data-placement="bottom">
+      <%= link_to "/en/vtweb/integration_opencart.html" do image_tag("/images/opencart_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Woocommerce" data-placement="bottom">
+      <%= link_to "/en/vtweb/integration_woocommerce.html" do image_tag("/images/woocommerce_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Drupal" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_drupal.html" do image_tag("/images/drupal_grey.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="WHMCS" data-placement="bottom">
+    <%= link_to "/en/vtweb/integration_whmcs.html" do image_tag("/images/whmcs_gray.png") end %>
+    </div>
+  </div>
+</div>
+
+{::options parse_block_html="true" /}
+
+<div class="tab-content">
+  <div class="tab-pane active">
+### VT-Web Magento Integration Steps
+<ol>
+  <li>Plugin Installation</li>
+  <li>Transaction Test</li>
+</ol>
+
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#magento-step1" data-toggle="tab"><span>Step 1</span>Plugin Installation</a></li>
+  <li><a href="#magento-step2" data-toggle="tab"><span>Step 2</span>Transaction Test</a></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="magento-step1">
+
+#### Requirements
+
+1. An online store with Magento infrastructure. This plugin is tested with Magento version 1.9.
+2. PHP minimum version 5.4.
+3. Midtrans plugin for Magento \[ [Github](https://github.com/veritrans/vtweb-magento) \| [Zip](https://github.com/veritrans/vtweb-magento/archive/master.zip) \].
+
+#### Installation Process
+
+1. Extract VTWebmagento-master.zip file you have previously downloaded.
+2. Upload / copy **app**, **lib**, dan **skin** folder that you have extracted into your Magento directory.
+
+#### Plugin Configuration
+
+In order to configure Midtrans-Magento plug-in:
+
+1. Access your Magento admin page.
+2. Go to **System - Configuration** menu in Magento admin page.
+3. In **Sales-Payment Methods** option, find the Veritrans tab. If Veritrans tab is not present, click **Save Config** beforehand.
+4. Click general to start configuration.
+5. Insert required fields following the figure below and click **Save Config**.
+  <br /><br />
+    ![Magento Config](/images/magen01.png){: .img-responsive .img-thumbnail}
+<br /><br />
+6. Login to MAP portal to configure a few options below:
+  
+    | URL Role | Redirect URL|
+    |---|---|
+    | Payment Notification URL | http://[your_shop’s_homepage]/vtweb/payment/notification |
+    | Finish Redirect URL | http://[your_shop’s_homepage]/vtweb/payment/response |
+    | Error Redirect URL | http://[your_shop’s_homepage]/vtweb/payment/response |
+    | Unfinish Redirect URL | http://[your_shop’s_homepage]/vtweb/payment/response |
+
+
+    ![Magento URL](/images/magento00.png){: .img-responsive .img-thumbnail}
+
+</div>
+
+<div class="tab-pane" id="magento-step2">
+<br />
+
+1. Perform a successful transaction in your online store by inputing a dummy credit card number as followed (Sandbox Mode):
+
+  | Type | Visa |
+  |---|---|
+  | Card Number | 4811 1111 1111 1114 |
+  | CVV | 123 |
+  | Exp. Month | 01 |
+  | Exp. Year | 2020 |
+
+  <br />
+2. Examine a few points below to ensure plugin is installed and performs properly.
+
+  | Check Point | Expected Result | When Unexpected Result Occurs |
+  |---|---|---|
+  | Check order status in Magento back end  | Order status turns into **processing** | Check endpoint/payment notification URL setting in MAP |
+  | Merchant receives email notification | Receive notification | Check MAP menu setting - email notification |
+  | Customer receives email notification | Receive notification | Check MAP menu setting - email notification |
+
+</div>
+</div>
+</div>
+</div>

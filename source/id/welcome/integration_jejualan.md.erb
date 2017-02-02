@@ -1,0 +1,85 @@
+<div class="row">
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Sirclo" data-placement="bottom">
+		<%= link_to "/id/welcome/integration_sirclo.html" do image_tag("welcome/sirclo_grey.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Shopify" data-placement="bottom">
+		<%= link_to "/id/welcome/integration_shopify.html" do image_tag("welcome/shopify_grey.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Jejualan" data-placement="bottom">
+		<%= link_to "/id/welcome/integration_jejualan.html" do image_tag("welcome/jejualan.jpg") end %>
+		</div>
+	</div>
+</div>
+
+{::options parse_block_html="true" /}
+
+### Integrasi Midtrans dengan Jejualan
+
+Mohon selesaikan langkah di bawah ini terlebih dahulu:
+
+1. Buat akun di [Jejualan](https://jejualan.com/daftar). Pilih servis Beta, Gamma, atau Delta untuk menggunakan servis Midtrans.
+2. Daftar akun Midtrans di [sini](https://account.midtrans.com/register).
+3. Lengkapi kebutuhan bisnis Midtrans dengan menghubungi [tim solutions Midtrans](mailto:solutions@midtrans.com "Solutions email") dengan __Jejualan - URL Name__ sebagai subjek dan sebutkan _Midtrans Merchant ID_ yang terdaftar.
+
+<br />
+
+#### Silahkan ikuti langkah-langkah berikut untuk memulai integrasi:
+
+1. Login ke [Merchant Administrator Portal](https://account.midtrans.com/login) Midtrans
+
+	Anda akan melihat nama online shop Anda, dengan mode Sandbox/Production. Pastikan Anda sedang berada di mode __Production__.
+
+	![Login MAP](welcome/affiliate/sirclo01.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+2. Pilih __Settings - Configuration__.
+
+	![Setting](welcome/affiliate/sirclo02.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+	Isi __Payment Notification URL__ dengan : `<website_anda>`.<br />
+	Contoh, jika website Anda adalah http://abc.jejualan.com, maka Payment Notification URL harus diisi dengan “http://abc.jejualan.com”.
+
+	Isi __Finish Redirect URL__ dengan: `<website_anda>/store/payment/veritrans/success`.<br />
+	Isi __Unfinish Redirect URL__ dengan: `<website_anda>/store/payment/`.<br />
+	Isi __Error Redirect URL__ dengan: `<website_anda>/store/payment/veritrans/failed`.
+
+3. Pilih __Settings - Access Keys__
+
+	Copy __Merchant ID__ dan __Server Key__ Midtrans (untuk digunakan di langkah selanjutnya).
+
+	![access key](welcome/affiliate/sirclo04.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+4. Login ke Jejualan Admin Panel dari toko online Anda.
+
+	![jejualan](welcome/affiliate/jejualan01.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+5. Pilih __Konfigurasi - pembayaran__.
+
+	![jejualan](welcome/affiliate/jejualan02.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+	Pilih Midtrans field, lalu pindahkan mode dari `Tidak Aktif` menjadi `Aktif`. Pastikan tombol sudah berwarna biru.
+
+
+6. Masukkan _Server Key_ Production Midtrans. Lalu pilih payment method yang ingin Anda gunakan
+
+	![jejualan](welcome/affiliate/jejualan03.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+	{::options parse_block_html="true" /}
+
+	<div class="alert alert-info" role="alert">
+  	<span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span>
+  	<span class="sr-only">Info:</span>
+	Anda hanya bisa menggunakan payment method yang Anda register ke Midtrans. Untuk pilihan Credit Card, kami merekomendasi Anda untuk menggunakan 3D Secure.
+	</div>
+
+7. Klik Simpan.

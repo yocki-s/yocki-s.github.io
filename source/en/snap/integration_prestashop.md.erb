@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="PHP" data-placement="bottom">
+    <%= link_to "/en/snap/integration_php.html" do image_tag("snap/php_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Prestashop" data-placement="bottom">
+    <%= link_to "/en/snap/integration_prestashop.html" do image_tag("snap/prestashop.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Magento" data-placement="bottom">
+    <%= link_to "/en/snap/integration_magento.html" do image_tag("snap/magento_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Opencart" data-placement="bottom">
+    <%= link_to "/en/snap/integration_opencart.html" do image_tag("snap/opencart_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Woocommerce" data-placement="bottom">
+    <%= link_to "/en/snap/integration_woocommerce.html" do image_tag("snap/woocommerce_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="WHMCS" data-placement="bottom">
+    <%= link_to "/en/snap/integration_whmcs.html" do image_tag("snap/whmcs_gray.png") end %>
+    </div>
+  </div>
+</div>
+
+{::options parse_block_html="true" /}
+
+<div class="tab-content">
+  <div class="tab-pane active">
+### Snap Prestashop Integration Steps
+<ol>
+  <li>Plugin Installation</li>
+  <li>Transaction Test</li>
+</ol>
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#prestashop-step1" data-toggle="tab"><span>Step 1</span>Plugin Installation</a></li>
+  <li><a href="#prestashop-step2" data-toggle="tab"><span>Step 2</span>Transaction Test</a></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="prestashop-step1">
+
+#### Requirements
+
+1. Prestashop v1.6 or greater.
+2. PHP v5.4 or greater.
+3. MySQL v5.0 or greater.
+3. Midtrans plugin for PrestaShop \[ [Github](https://github.com/veritrans/SNAP-Prestashop) \| [Zip](https://github.com/veritrans/SNAP-Prestashop/archive/master.zip) \].
+
+#### Installation Process
+
+1. Extract the plugin you have previously downloaded and rename folder as **midtranspay**. Then Zip the folder back into midtranspay.zip.
+2. Go to your Prestashop administration page and go to **Modules and Services - Modules and Services** menu.
+3. Click on the **Add a new module** and locate the **midtranspay.zip** file, then upload it.
+4. Find the **Midtrans Pay** module in the module list and click **install**, then enable it.
+5. Find the **Midtrans Pay** module in the module list and click **configure**.
+
+    - Fill **Payment Button Display Title** with text button that you want to display to customer.
+    - Select **Environment**, `Sandbox` is for testing transaction, `Production` is for real transaction.
+    - Fill in the **client key & server key**. You can find this credential on Midtrans MAP Dashboard.
+    - **Map payment SUCCESS status to:** select your desired order status when payment is success.
+    - **Map payment FAILURE status to:** select your desired order status when payment is failure.
+    - **Map payment PENDING/CHALLENGE status to:** select your desired order status when payment is challenged.
+    - Other configuration are optional, you may leave it as is.
+
+    ![Prestashop config](snap/snap-presta1.png){: .img-responsive .img-thumbnail}
+
+5. Login to MAP portal to configure a few options below:
+
+    | URL Role | Redirect URL|
+    |---|---|
+    | Payment Notification URL | http://[your-site-url]/index.php?fc=module&module=midtranspay&controller=notification |
+    | Finish Redirect URL | http://[your-site-url]/index.php?fc=module&module=midtranspay&controller=success |
+    | Error Redirect URL | http://[your-site-url]/index.php?fc=module&module=midtranspay&controller=failure |
+    | Pending Redirect URL | http://[your-site-url]/index.php?fc=module&module=midtranspay&controller=back |
+
+<br>
+
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Note:</span>
+  <span class="sr-only">Note: </span>
+ <br>Please check our [Snap-Prestashop Repo Wiki](https://github.com/veritrans/SNAP-Prestashop/wiki) for another tutorial.
+</div>
+</div>
+
+<div class="tab-pane" id="prestashop-step2">
+
+1. Perform successful transaction in your online store by inputing a dummy credit card number as followed (Sandbox Mode):
+
+    | Type | Visa |
+    |---|---|
+  | Card Number | 4811 1111 1111 1114 |
+  | CVV | 123 |
+  | Exp. Month | 01 |
+  | Exp. Year | 2020 |
+
+    <br>
+2. Examine a few points below to ensure plugin is installed and performs properly.
+
+    | Check Point | Expected Result | When Unexpected Result Occurs|
+    |---|---|---|
+  | Check order status in PrestaShop back end | Order status turns into **payment accepted** | Check endpoint/payment notification URL setting in MAP |
+  | Merchant receives email notification | Receive notification | Check MAP menu setting - email notification |
+  | Customer receives email notification | Receive notification | Check MAP menu setting - email notification |
+
+  <br>
+
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Note:</span>
+  <span class="sr-only">Note: </span>
+ <br>Please check our [Snap-Prestashop Repo Wiki](https://github.com/veritrans/SNAP-Prestashop/wiki) for another tutorial.
+</div>
+
+</div>
+</div>
+</div>
+</div>

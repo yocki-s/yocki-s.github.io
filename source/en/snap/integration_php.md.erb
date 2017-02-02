@@ -1,0 +1,1171 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="PHP" data-placement="bottom">
+      <%= link_to "/en/snap/integration_php.html" do image_tag("snap/php.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Prestashop" data-placement="bottom">
+      <%= link_to "/en/snap/integration_prestashop.html" do image_tag("snap/prestashop_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Magento" data-placement="bottom">
+      <%= link_to "/en/snap/integration_magento.html" do image_tag("snap/magento_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Opencart" data-placement="bottom">
+      <%= link_to "/en/snap/integration_opencart.html" do image_tag("snap/opencart_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Woocommerce" data-placement="bottom">
+      <%= link_to "/en/snap/integration_woocommerce.html" do image_tag("snap/woocommerce_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="WHMCS" data-placement="bottom">
+    <%= link_to "/en/snap/integration_whmcs.html" do image_tag("snap/whmcs_gray.png") end %>
+    </div>
+  </div>
+</div>
+
+{::options parse_block_html="true" /}
+
+<div class="tab-content">
+<div class="tab-pane active">   <!-- Beginning of header-->
+
+### Snap PHP Integration Steps
+
+<ol>
+  <li>Obtain Snap Token</li>
+  <li>Show Snap Payment page</li>
+  <li>Transaction Status</li>
+   <li>Handling HTTP Notification</li>
+</ol>
+
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#step1" data-toggle="tab"><span>Step 1</span>Obtain Snap Token</a></li>
+  <li><a href="#step2" data-toggle="tab"><span>Step 2</span>Show Snap Payment page</a></li>
+  <li><a href="#step3" data-toggle="tab"><span>Step 3</span>Transaction Status</a></li>
+  <li><a href="#step4" data-toggle="tab"><span>Step 4</span>Handling Notification</a></li>
+</ul>
+
+<div class="tab-content"> <!-- Beginning of STEPS Tab Content-->
+
+<div class="tab-pane active" id="step1"><!-- step 1-->
+<!-- One -->
+
+## Obtaining Snap Token ##
+
+On this step, we will try to obtain the Snap token when performing a transaction. There is at least 3 components that are required to obtain Snap token:
+
+1. `server key`
+2. Transaction ID
+3. Transaction Total Nominal
+
+<br>
+The example below shows a sample PHP Code to obtain Snap token.
+
+~~~ php
+<?php
+require_once(dirname(__FILE__) . 'Veritrans.php');
+
+//Set Your server key
+Veritrans_Config::$serverKey = "<Set your Sandbox ServerKey here>";
+
+// Uncomment for production environment
+// Veritrans_Config::$isProduction = true;
+
+Veritrans_Config::$isSanitized = true;
+Veritrans_Config::$is3ds = true;
+
+$transaction = array(
+    'transaction_details' => array(
+        'order_id' => "<your order_id>",
+        'gross_amount' => 10000 // no decimal allowed
+        )
+    );
+
+$snapToken = Veritrans_Snap::getSnapToken($transaction);
+?>
+~~~
+
+<br />
+The sample code above utilizes the **Veritrans-PHP** library that can been downloaded at [[Github](https://github.com/veritrans/veritrans-php/tree/snap) - [Zip](https://github.com/veritrans/veritrans-php/archive/snap.zip)] and using sandbox/test environment.
+
+`Veritrans.php` file is assumed to be located in the same directory with the source code. `server_key` value been explained on [Getting Started - Preparation](/en/welcome/preparation.html#step3).
+
+By default, all available payment methods will be displayed in Snap page. To enable only specifics payment methods, follow the steps in [Snap - Other Features](/en/snap/other_features.html).
+
+* * *
+
+## Adding Transaction Information (Optional)
+
+Merchant can add more information in the variable `$transaction`, i.e. customer data, order item data, and method of payment. This add on data will affect the Snap payment page and transaction logged on the MAP (Merchant Administration Portal).
+
+Most fields on Snap page will be filled automatically and information related to order item and delivery address will be displayed.<br>Details and complete Snap transaction data structure and attributes can be found in [Snap API reference](https://snap-docs.midtrans.com).
+
+PHP sample code that includes all transaction data is shown as follow:<br />
+
+~~~ php
+<?php
+require_once(dirname(__FILE__) . 'Veritrans.php');
+
+//Set Your server key
+Veritrans_Config::$serverKey = "<Set your Sandbox ServerKey here>";
+
+// Uncomment for production environment
+// Veritrans_Config::$isProduction = true;
+
+Veritrans_Config::$isSanitized = true;
+Veritrans_Config::$is3ds = true;
+
+// Fill transaction details
+$transaction_details = array(
+  'order_id' => rand(),
+  'gross_amount' => 145000, // no decimal allowed
+);
+
+// Optional, mandatory for mandiri bill payment
+$item1_details = array(
+    'id' => 'a1',
+    'price' => 50000,
+    'quantity' => 2,
+    'name' => "Apple"
+    );
+
+// Optional
+$item2_details = array(
+    'id' => 'a2',
+    'price' => 45000,
+    'quantity' => 1,
+    'name' => "Orange"
+    );
+
+// Optional, mandatory for mandiri bill payment
+$item_details = array ($item1_details, $item2_details);
+
+// Optional
+$billing_address = array(
+    'first_name'    => "Andri",
+    'last_name'     => "Litani",
+    'address'       => "Mangga 20",
+    'city'          => "Jakarta",
+    'postal_code'   => "16602",
+    'phone'         => "081122334455",
+    'country_code'  => 'IDN'
+    );
+
+// Optional
+$shipping_address = array(
+    'first_name'    => "Obet",
+    'last_name'     => "Supriadi",
+    'address'       => "Manggis 90",
+    'city'          => "Jakarta",
+    'postal_code'   => "16601",
+    'phone'         => "08113366345",
+    'country_code'  => 'IDN'
+    );
+
+$customer_details = array(
+    'first_name'    => "Andri", //optional
+    'last_name'     => "Litani", //optional
+    'email'         => "andri@litani.com", //mandatory
+    'phone'         => "081122334455", //mandatory
+    'billing_address'  => $billing_address, //optional
+    'shipping_address' => $shipping_address //optional
+    );
+
+// Fill transaction details
+$transaction = array(
+    'transaction_details' => $transaction_details,
+    'customer_details' => $customer_details,
+    'item_details' => $item_details,
+    );
+
+$snapToken = Veritrans_Snap::getSnapToken($transaction);
+?>
+~~~
+
+<br />
+
+* * *
+
+## Response On Snap Token Request
+
+|Status Code|Description| Example |
+|-----------|-----------|---------|
+|`201` |Success obtain Snap token.| "token": "d379aa71-99eb-4dd1-b9bb-eefe813746e9" |
+|`400` |Failed. Wrong parameter.| "transaction_details.gross_amount is not equal to the sum of item_details" |
+|`401` |Failed. Credential key error.| "Access denied, please check client or server key" |
+|`500` |Failed. Something happen on our system.| "Sorry, we encountered internal server error. We will fix this soon." |
+
+</div><!-- end of step 1-->
+
+<div class="tab-pane" id="step2"><!-- step 2-->
+
+<!-- Two -->
+
+## Show Snap Payment page
+
+On this step, we will try to show Snap payment page. There is at least 3 components that are required to do this:
+
+1. `Client Key`
+2. Snap.js
+3. Snap token
+
+Include `snap.js` into your page so snap module is available. Don’t forget to put your `CLIENT-KEY` as value of data-client-key attribute in snap.js script tag. 
+
+~~~ html
+<html>
+  <head>
+    <script type="text/javascript"
+            src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="<Set Your Sandbox Client Key Here>"></script> 
+  </head>
+  <body>
+    <button id="pay-button">Pay!</button>
+    <script type="text/javascript">
+      var payButton = document.getElementById('pay-button');
+      payButton.addEventListener('click', function () {
+        snap.pay('<?php echo $snap_Token; ?>'); // store your snap token here
+      });
+    </script>
+  </body>
+</html>
+~~~
+
+<br>
+
+Referring to the steps above, the displayed Snap page is as follows: 
+
+![snap](snap/snap01.png){: .img-responsive .img-thumbnail}
+
+</div><!-- end of step 2-->
+
+<div class="tab-pane" id="step3"><!-- step 3-->
+
+<!-- Three -->
+
+## Transaction Status ##
+
+Midtrans provides three means for the merchant to obtain the transaction status.
+
+1. Email Notification
+2. HTTP(S) Notification
+3. Merchant Administration Portal
+
+
+### Email Notification
+
+You can configure the email notification setting at [Settings - Email Notification](https://dashboard.sandbox.midtrans.com/settings/email_notifications) in MAP.
+
+![config_payment](snap/vtweb-emailnotif.png){: .img-responsive .img-thumbnail}
+
+<div class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span>
+  <span class="sr-only">Info:</span><br>
+  For multiple emails, please use comma as a separator. Example : me@tokoecomm.com, you@tokoecomm.com
+</div>
+
+<br>
+
+* * *
+
+### HTTP(S) POST Notification
+Notification through HTTP(S) POST will be sent to the merchant’s server when customer completes the payment process. You can utilize the *HTTP(S) POST notification* to update a payment status or send the item of a transaction in real time.
+
+Enable Midtrans HTTP(S) POST Notification by setting the Payment Notification URL at [Settings - Configuration](https://dashboard.sandbox.midtrans.com/settings/vtweb_configuration/ "Midtrans Snap configuration page").
+<br />
+![config_payment](snap/vtweb-httpnotif.png){: .img-responsive .img-thumbnail}
+<br />
+
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"> Note</span>
+  <span class="sr-only">Warning:</span><br>
+Make sure your Payment Notification URL is not the same as your localhost address.
+</div>
+
+<br>
+
+The content of the HTTP(S) POST notification consists of JSON object.<br>A sample notification is described as followed:
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#statuscc" data-toggle="tab-code" data-lang="cc">Credit Card</a></li>
+  <li><a href="#statuspermatava" data-toggle="tab-code" data-lang="permata">Permata VA</a></li>
+  <li><a href="#statusmandiri" data-toggle="tab-code" data-lang="mandiri">Mandiri ClickPay</a></li>
+  <li><a href="#statuscimb" data-toggle="tab-code" data-lang="cimb">CIMB Clicks</a></li>
+  <li><a href="#statusbriepay" data-toggle="tab-code" data-lang="bri">ePay BRI</a></li>
+  <li><a href="#statustcash" data-toggle="tab-code" data-lang="telkomsel">Telkomsel Cash</a></li>
+  <li><a href="#statusxltunai" data-toggle="tab-code" data-lang="xl">XL Tunai</a></li>
+  <li><a href="#statusmbill" data-toggle="tab-code" data-lang="mandiribill">Mandiri Bill Payment</a></li>
+  <li><a href="#statusindomrt" data-toggle="tab-code" data-lang="indomaret">Indomaret</a></li>
+  <li><a href="#statusdompetku" data-toggle="tab-code" data-lang="dompetku">Indosat Dompetku</a></li>
+  <li><a href="#statusmandiriecash" data-toggle="tab-code" data-lang="mandiriecash">Mandiri Ecash</a></li>
+  <li><a href="#statusbcava" data-toggle="tab-code" data-lang="bcava">BCA VA</a></li>
+  <li><a href="#statusbcaklikpay" data-toggle="tab-code" data-lang="bcaklikpay">BCA KlikPay</a></li>
+  <li><a href="#statusklikbca" data-toggle="tab-code" data-lang="klikbca">Klik BCA</a></li>
+</ul>
+
+<div class="tab-content"><!-- Status Tab Content-->
+{::options parse_block_html="true" /}
+<div class="tab-pane active" id="statuscc"><!-- step cc-->
+
+### Credit Card
+
+HTTP Notification example of a successful credit card transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "3a351906-2a89-47b6-8b88-d890e626ba4d",
+  "masked_card": "481111-1114",
+  "order_id": "VTCC001",
+  "payment_type": "credit_card",
+  "transaction_time": "2015-04-27 14:29:32",
+  "transaction_status": "capture",
+  "fraud_status": "accept",
+  "approval_code": "1430119773366",
+  "signature_key": "e192d421a3a4ad5c53d866d6591d75c3982e4019cd6f8954a0aa0d9387af44b983ca182c9c8b0fdfd5ba1ec2d10057f37b6dfb86742f5657800fa82282993e68",
+  "bank": "mandiri",
+  "eci": "05",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|capture | Transaction is accepted and ready to for settlement.|
+|cancel | Transaction is cancelled and will not proceed to settlement.|
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+|deny | Transaction is denied by the bank or Midtrans Fraud Detection System. |
+
+<br>
+
+| fraud_status | Definition |
+|---|---|
+|accept | Transaction passes Midtrans Fraud Detection System. |
+|challenge | Transaction is a suspicious transaction. Manually accepts or denied transaction. |
+|deny | Transaction is denied by Midtrans Fraud Detection System. |
+
+<br>
+
+Transaction result between transaction_status and fraud_status
+
+| transaction_status | fraud_status | Definition |
+|---|---|---|
+|capture | **accept** | Transaction success |
+|capture | **challenge** | Transaction challenge (hit our FDS). Manually `accepts` or `denied` transaction. |
+|deny | **any** | Transaction is denied |
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for credit card:
+![map_transaction](snap/map_transaction.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Credit Card is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Success | Transaction is accepted and will be settled.|
+| Challenge | Credit card transaction is marked as suspicious transaction by Midtrans Fraud Detection System. Merchant has to manually `Accept` or `Deny` the transaction through Midtrans Dashboard.|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Credit card transaction is rejected by Midtrans Fraud Detection System.|
+| Cancel | Cancelled transaction can be caused by various reasons:<br>1. Successful transaction is cancelled before Settlement.<br>2. Challenge Transaction is denied by merchant. |
+
+</div> <!-- End of Credit Card Status -->
+
+<div class="tab-pane" id="statuspermatava"><!-- Permata VA Status -->
+
+### Permata Virtual Account
+
+HTTP Notification example of a successful Permata Virtual Account transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "9a31e442-951f-490d-9b9c-9e618ec98874",
+  "order_id": "VTVA001",
+  "payment_type": "bank_transfer",
+  "transaction_time": "2015-04-27 14:39:16",
+  "transaction_status": "settlement",
+  "permata_va_number": "8778006776893528",
+  "signature_key": "31b482e796c35153e829a85c59d831313694cd0c7cecdbb85a7a33474f431fbea75f440f57d09608ea1889a9eedd950017f1162ae37a2ec9b00084d932fb5309",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|pending | payment transaction has not been processed and is waiting to be completed. |
+|cancel | Transaction has been cancelled. Permata VA Number is now invalid. |
+|expire | Transaction has not been completed by the expiry date. Permata VA Number is now invalid.|
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Permata Virtual Account:
+![Snap transfer Test 3](snap/transfer_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Permata Virtual Account is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+</div><!-- End of Permata VA Status -->
+<div class="tab-pane" id="statusmandiri"><!-- Mandiri Status -->
+
+### Mandiri Clickpay
+
+HTTP Notification example of a successful Mandiri clickpay transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "fdb6322d-2fef-42c5-a956-d6b575247f0b",
+  "masked_card": "411111-1111",
+  "order_id": "VTMC001",
+  "payment_type": "mandiri_clickpay",
+  "transaction_time": "2015-04-27 14:44:38",
+  "transaction_status": "settlement",
+  "fraud_status": "accept",
+  "approval_code": "1430120681256",
+  "signature_key": "6dfe98c7e8e1cc4725fa10d82e696816a04c5c0fdf819af3fef65d825b4b1cad0c024a3f1813f3cb590657d8cd3edabfb4e91dbb4376344f7460ed00637cd967",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+|deny | Transaction is denied by the bank. |
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Mandiri Clickpay:
+![Snap Mandiri Test 3](snap/mandiri_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Mandiri clickpay is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Transaction is denied by the Bank.|
+
+</div><!-- End of Mandiri Status -->
+<div class="tab-pane" id="statuscimb"><!-- CIMB Status -->
+
+### CIMB Clicks
+
+HTTP Notification example of a successful CIMB Clicks transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "47c11d2a-a8ca-4337-8681-8837ad023d65",
+  "order_id": "VTCimb001",
+  "payment_type": "cimb_clicks",
+  "transaction_time": "2015-04-27 14:58:01",
+  "transaction_status": "settlement",
+  "approval_code": "1430121525724",
+  "signature_key": "d70a32353c173b543b7580f8927a3c46c547ef4486457ca8b61f44eb644e7a76cccbbd244ec6f188d3ef8cc164950a02f8350e7d305fd635795b909aa0188975",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|pending | Transaction has not been processed and is waiting to be completed. |
+|cancel | CIMB Clicks transaction has been cancelled. |
+|expire | CIMB Clicks Transaction has not been completed after 2 hours.|
+|deny | Transaction is denied by the bank. |
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for CIMB Clicks:
+![Snap CIMB Test 4](snap/cimb_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for CIMB Clicks is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+</div><!-- End of CIMB Status -->
+
+<div class="tab-pane" id="statusbriepay"><!-- BRI E-Pay Status -->
+
+### e-Pay BRI
+
+HTTP Notification example of a successful e-Pay BRI transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "3479c572-1d36-49c0-b5b1-22c876df411f",
+  "order_id": "VTEB001",
+  "payment_type": "bri_epay",
+  "transaction_time": "2015-04-27 15:04:48",
+  "transaction_status": "settlement",
+  "fraud_status": "accept",
+  "approval_code": "1430121888862",
+  "signature_key": "39ec591fbf754982e0fb83d125b60ff1863b41878799d1adada69476d6f3b746631addce8bf51a9d7bb76d92cea5a4291d57ed4626c0dc8cfefa5f3112887bcd",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|pending | Transaction has not been processed and is waiting to be completed. |
+|cancel | e-Pay BRI transaction has been cancelled. |
+|expire | e-Pay BRI Transaction has not been completed after 2 hours.|
+|deny | Transaction is denied by the bank. |
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for e-Pay BRI:
+![Snap epay Test 4](snap/epay_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for e-Pay BRI is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.<br>Refer to Dashboard Operation to know more about [Settlement](/en/dashboard/index.html#Settlement).|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+<br>
+
+</div><!-- End of BRI E-Pay Status -->
+<div class="tab-pane" id="statustcash"><!-- T-Cash Status -->
+
+### Telkomsel Cash
+
+HTTP Notification example of a successful Telkomsel Cash transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "ee925bec-3bef-43a6-bb10-cbe8ab8fa68a",
+  "order_id": "Test-Order-6",
+  "payment_type": "telkomsel_cash",
+  "transaction_time": "2015-04-27 15:08:21",
+  "transaction_status": "settlement",
+  "signature_key": "a1ea0f3fd4690896464752a311fe0d7e53c9f75138f06c1cdd4d4d8bf7664214ff9ef2966a966e9507709041d6403f81ea2b3b76ce67f1437bc5e82913c4c545",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|deny | Transaction is denied by the provider. |
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Telkomsel Cash:
+![Snap Tcash](snap/tcash_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Telkomsel Cash is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+</div><!-- End of T-Cash Status -->
+<div class="tab-pane" id="statusxltunai"><!-- XL Tunai Status -->
+
+### XL Tunai
+
+HTTP Notification example of a successful XL Tunai transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "1731610c-cbe5-4f59-a976-8206f3a59bc0",
+  "order_id": "vtimage07",
+  "payment_type": "xl_tunai",
+  "transaction_time": "2015-04-27 15:20:40",
+  "transaction_status": "settlement",
+  "signature_key": "288f5b0f069d5d15383d1e0a13c34944c8681f5d0d1168727e9a3678581bda48736780b558567d16d35be9ee09f552f9a008f04980a5afef6bfc57a6df180f78",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|pending | Transaction has not been processed and is waiting to be completed. |
+|cancel | XL Tunai transaction has been cancelled. |
+|expire | XL Tunai Transaction has not been completed after 2 hours.|
+|deny | Transaction is denied by the bank. |
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for XL Tunai:
+![Snap transfer Test 3](snap/xl_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for XL Tunai is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+</div><!-- End of XL Tunai Status -->
+
+<div class="tab-pane" id="statusmbill"><!-- Mandiri BillPayment Status -->
+
+### Mandiri Bill Payment
+
+HTTP Notification example of a successful Mandiri Bill Payment transaction:
+
+~~~ json
+{
+    "status_code": "200",
+    "status_message": "Success, Mandiri Bill transaction is successful",
+    "transaction_id": "0b53c7dc­e63c­4bbc­a371­6b1ca5c925c7",
+    "order_id": "1421816431",
+    "payment_type": "echannel",
+    "transaction_time": "2015­01­21 12:00:31",
+    "transaction_status": "settlement",
+    "fraud_status": "accept",
+    "biller_code": "70012",
+    "bill_key": "000857123456",
+    "signature_key": "e04f6657ee37f44c625282ac0a505cc1ea776901e51708823fe63921f47e24277868fc6f1e3ea1071074ab32455d679b47b20b4ad56a4ecba1d1dc9bbfa3aa80",
+    "gross_amount": "400000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|pending | Transaction has not been processed and is waiting to be completed. |
+|cancel | Transaction has been cancelled. Mandiri Bill Number is now invalid. |
+|expire | Transaction has not been completed by the expiry date. Mandiri Bill Number is now invalid.|
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Mandiri Bill Payment:
+![Snap mbill Test 3](snap/mbill_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Mandiri Bill Payment is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+</div><!-- End of Mandiri BillPayment Status -->
+
+<div class="tab-pane" id="statusindomrt"><!-- Indomaret Status -->
+
+### Indomaret
+
+HTTP Notification example of a successful Indomaret transaction:
+
+~~~ json
+{
+     "status_code": "200",
+     "status_message": "Veritrans payment notification",
+     "transaction_id": "f8e2c3f8-e210-45ab-88ec-c0be989b0631",
+     "order_id": "0900099957582",
+     "gross_amount": "149000.00",
+     "payment_type": "cstore",
+     "transaction_time": "2017-01-19 14:39:01",
+    "transaction_status": "settlement",
+     "approval_code": "09211701070999568803",
+     "signature_key": "4a14241267ff535503c65074407beb98fa81a2c031435afe5a5d523905d3ba3222427831945719ff285738dd28c4d32afeb7aca32f026070c58b9fa4520b3",
+     "payment_code": "63756290009995",
+     "store": "indomaret"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|pending | Transaction has not been processed and is waiting to be completed. |
+|cancel | Transaction has been cancelled. Indomaret payment code Number is now invalid. |
+|expire | Transaction has not been completed by the expiry date. Indomaret payment code Number is now invalid.|
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status under [Transaction menu](https://dashboard.sandbox.midtrans.com/payments) on MAP.
+
+Example of a successful transaction status for Indomaret:
+![Snap indomrt3](snap/indomrt_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Indomaret is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by various reasons:<br> 1. Transaction is denied by the Bank.<br>2. Pending Transaction has not been paid and is expired.|
+
+</div><!-- End of Indomaret Status -->
+<div class="tab-pane" id="statusdompetku"><!-- Indosat Dompetku Status -->
+
+### Indosat Dompetku
+
+HTTP Notification example of a successful Indosat Dompetku transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "0b7696f1-f9ca-4f4b-a389-ede2c2dddb5c",
+  "order_id": "vtdompetku03",
+  "payment_type": "indosat_dompetku",
+  "transaction_time": "2015-06-24 11:20:24",
+  "transaction_status": "settlement",
+  "signature_key": "73c70c8354e0705a16bd5d47d0ab3029a70b79bef0fe3b29161557110205d3679f0ea177101f56fe6313a887f340be7d302750ce8a4e0f67753c70548159895e",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| transaction_status | Definition |
+|---|---|
+|deny | Transaction is denied by the provider. |
+|settlement | Funds from the transaction has moved from customer to merchant's account.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Indosat Dompetku:
+![Snap dompetku Test 3](snap/dompetku_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Indosat Dompetku is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Transaction is denied by the Provider.|
+
+</div><!-- End of dompetku Status -->
+
+<div class="tab-pane" id="statusmandiriecash"><!-- Mandiri E-cash Status -->
+
+### Mandiri E-cash
+
+HTTP Notification example of a successful Mandiri E-cash transaction:
+
+~~~ json
+{
+  "status_code": "200",
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "0b7696f1-f9ca-4f4b-a389-ede2c2dddb5c",
+  "order_id": "vtecash03",
+  "payment_type": "mandiri_ecash",
+  "transaction_time": "2015-06-24 11:20:24",
+  "transaction_status": "settlement",
+  "signature_key": "73c70c8354e0705a16bd5d47d0ab3029a70b79bef0fe3b29161557110205d3679f0ea177101f56fe6313a887f340be7d302750ce8a4e0f67753c70548159895e",
+  "gross_amount": "145000.00"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| Pending | Transaction has not been processed and is waiting to be completed. |
+| Settlement | Transaction is accepted and has been settled.|
+| Expired | Failure transaction caused by pending Transaction has not been paid and is expired.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Mandiri E-cash:
+![Snap mandiriecash](snap/mandiriecash_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Mandiri E-cash is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by pending Transaction has not been paid and is expired.|
+
+</div><!-- End of mandiriecash Status -->
+
+<div class="tab-pane" id="statusbcava"><!-- BCA VA Status -->
+
+### BCA VA
+
+HTTP Notification example of a successful BCA VA transaction:
+
+~~~ json
+{
+    "va_numbers": [
+          {
+            "bank": "bca",
+            "va_number": "05028708961"
+          }
+        ],
+    "transaction_time": "2017-01-19 17:36:33",
+    "gross_amount": "9000.00",
+    "order_id": "test-1484822143",
+    "payment_type": "bank_transfer",
+    "signature_key": "cf2da321a084528d6bd4e66ee813212cb2ad0532ddfe2ac40c2cd38385b625ab20d426dbfa7d8729aeac36bb0f1c556a476d25945bc8b258f22f99895dade602",
+    "status_code": "200",
+    "transaction_id": "30bd8825-4673-488a-a03d-1ceda4930b15",
+    "transaction_status": "settlement",
+    "fraud_status": "accept",
+    "status_message": "Veritrans payment notification"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| Pending | Transaction that has not been completed.|
+| Settlement | Transaction is accepted and has been settled.|
+| Expired | Failure transaction caused by pending Transaction has not been paid and is expired.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for BCA VA:
+![Snap bcava](snap/bcava_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for BCA VA is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by pending Transaction has not been paid and is expired.|
+
+</div><!-- End of BCA VA Status -->
+
+<div class="tab-pane" id="statusbcaklikpay"><!-- BCA KlikPay Status -->
+
+### BCA KlikPay
+
+HTTP Notification example of a successful BCA KlikPay transaction:
+
+~~~ json
+{
+    "approval_code": "112233",
+    "transaction_time": "2017-01-19 15:40:43",
+    "gross_amount": "33000.00",
+    "order_id": "bcaklikpay01",
+    "payment_type": "bca_klikpay",
+    "signature_key": "644e39ab19d830b9ebcd2b4ae9f28c2dfaab06a33dd47d3fe2a94f2229b2478eb0606c43eec16e9836294b479b2e9867c309aad7a93a2d32d8b2f81c731f3379",
+    "status_code": "200",
+    "transaction_id": "1e22e73d-b496-41d6-a7b0-3acb763d2020",
+    "transaction_status": "settlement",
+    "fraud_status": "accept",
+    "status_message": "Veritrans payment notification"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| Pending | Transaction that has not been completed.|
+| Settlement | Transaction is accepted and has been settled.|
+| Expired | Failure transaction caused by pending Transaction has not been paid and is expired.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for BCA KlikPay:
+![Snap bcaklikpay](snap/klikpay_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for BCA KlikPay is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by pending Transaction has not been paid and is expired.|
+
+</div><!-- End of BCA KlikPay Status -->
+
+<div class="tab-pane" id="statusklikbca"><!-- Klik BCA Status -->
+
+### Klik BCA
+
+HTTP Notification example of a successful Klik BCA transaction:
+
+~~~ json
+{
+    "status_code": "200",
+    "status_message": "Veritrans payment notification",
+    "transaction_id": "63d28e4d-870a-43ea-a0ef-7739e0104f9a",
+    "order_id": "jktrs11715",
+    "gross_amount": "99000.00",
+    "payment_type": "bca_klikbca",
+    "transaction_time": "2017-01-13 14:50:02",
+    "transaction_status": "settlement",
+    "approval_code": "aius11715",
+    "signature_key": "a2a6e288d6ab8e6d9101c99b4df1ee285d62fdd9e160a66a2d7463521dfc2a928224256a932963c2f4d8ee486d90123cfcef770651afc55a5fb8af00100477d4"
+}
+~~~
+
+<br>
+
+#### Available HTTP(S) POST Notification Status
+
+| Pending | Transaction that has not been completed.|
+| Settlement | Transaction is accepted and has been settled.|
+| Expired | Failure transaction caused by pending Transaction has not been paid and is expired.|
+
+<br>
+
+* * *
+
+### Merchant Admin Portal(MAP) Transaction Status
+
+Merchant can check the transactions status from [payments](https://dashboard.sandbox.midtrans.com/payments) menu on MAP.
+
+Example of a successful transaction status for Klik BCA:
+![Snap klikbca](snap/klikbca_status.png){: .img-responsive .img-thumbnail}
+
+<br />
+
+List of available MAP transaction status for Klik BCA is described below:
+
+|Transaction Status | Definition |
+|---|---|
+| Pending | Transaction that has not been completed will generate a Pending status.<br>Once customer complete the transaction, the status will turn into `Settlement`.|
+| Settlement | Transaction is accepted and has been settled.|
+| Failure | Failure transaction can be caused by pending Transaction has not been paid and is expired.|
+
+</div><!-- End of Klik BCA Status -->
+
+</div><!-- End of Tab-Content u/ Status -->
+
+</div><!-- end of step 3-->
+<div class="tab-pane" id="step4"><!-- step 4-->
+
+## Handling HTTP(S) Notification
+
+The following figure is a sample code for merchant to receive HTTP(S) POST and JSON object by utilizing **Veritrans-PHP** library. This PHP code is executed when notification URL endpoint (https://tokoecomm.com/notification) is accessed.<br />
+
+<br>
+
+~~~ php
+<?php
+
+require_once('Veritrans.php');
+Veritrans_Config::$isProduction = false;
+Veritrans_Config::$serverKey = '<your serverkey>';
+$notif = new Veritrans_Notification();
+
+$transaction = $notif->transaction_status;
+$type = $notif->payment_type;
+$order_id = $notif->order_id;
+$fraud = $notif->fraud_status;
+
+if ($transaction == 'capture') {
+  // For credit card transaction, we need to check whether transaction is challenge by FDS or not
+  if ($type == 'credit_card'){
+    if($fraud == 'challenge'){
+      // TODO set payment status in merchant's database to 'Challenge by FDS'
+      // TODO merchant should decide whether this transaction is authorized or not in MAP
+      echo "Transaction order_id: " . $order_id ." is challenged by FDS";
+      }
+      else {
+      // TODO set payment status in merchant's database to 'Success'
+      echo "Transaction order_id: " . $order_id ." successfully captured using " . $type;
+      }
+    }
+  }
+else if ($transaction == 'settlement'){
+  // TODO set payment status in merchant's database to 'Settlement'
+  echo "Transaction order_id: " . $order_id ." successfully transfered using " . $type;
+  }
+  else if($transaction == 'pending'){
+  // TODO set payment status in merchant's database to 'Pending'
+  echo "Waiting customer to finish transaction order_id: " . $order_id . " using " . $type;
+  }
+  else if ($transaction == 'deny') {
+  // TODO set payment status in merchant's database to 'Denied'
+  echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
+  }
+  else if ($transaction == 'expire') {
+  // TODO set payment status in merchant's database to 'expire'
+  echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is expired.";
+  }
+  else if ($transaction == 'cancel') {
+  // TODO set payment status in merchant's database to 'Denied'
+  echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
+}
+?>
+
+~~~
+
+<div class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span>
+  <span class="sr-only">Info:</span><br> For security reason, if you using Veritrans_Notification class like the example. Our veritrans php library is already doing the [challenge notification](https://api-docs.midtrans.com/#handing-notifications) process.
+</div>
+
+<br><br>
+
+</div><!-- end of step 4-->
+</div><!-- end of STEPS tab-content-->
+</div><!-- end of header-->

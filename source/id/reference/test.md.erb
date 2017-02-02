@@ -1,0 +1,136 @@
+## Midtrans Testing Credential
+---
+
+##### *Berikut adalah daftar kartu dummy yang dapat digunakan di mode sandbox, pastikan Anda tidak menggunakannya pada mode Produksi. Simulator kami menggunakan port 7676, Pastikan Anda membuka port tersebut.*
+------------------
+
+{::options parse_block_html="true" /}
+
+<div class="tab-pane active">   <!-- Beginning of header-->
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#credit-card" data-toggle="tab">Kartu Kredit</a></li>
+  <li><a href="#direct-debit" data-toggle="tab">Direct Debit</a></li>
+  <li><a href="#bank-transfer" data-toggle="tab">Bank Transfer</a></li>
+  <li><a href="#e-wallet" data-toggle="tab">e-Wallet</a></li>
+  <li><a href="#conv-store" data-toggle="tab">Convenience Store</a></li>
+</ul>
+
+<div class="tab-content"> <!-- Beginning of Tab Content-->
+
+<div class="tab-pane active" id="credit-card"><!-- Credit Card-->
+
+### Kartu Kredit
+
+#### Nomor kartu umum (Transaksi 3D Secure)
+
+|VISA | Deskripsi|
+|----------|------------|
+|Authentikasi Penuh <br> *Pemegang kartu terdaftar 3DS* | **Transaksi Berhasil:** 4811 1111 1111 1114 <br> **Transaksi Gagal oleh Bank:** 4911 1111 1111 1113|
+|Authentikasi Sebagian <br> *Pemegang kartu tidak <br> terdaftar 3DS* | **Transaksi Berhasil:** 4411 1111 1111 1118 <br> **Transaksi Challenge oleh FDS:** 4511 1111 1111 1117 <br> **Transaksi Gagal oleh FDS:** 4611 1111 1111 1116 <br> **Transaksi Gagal oleh Bank:** 4711 1111 1111 1115|
+
+<br>
+
+|MASTERCARD | Deskripsi|
+|----------|------------|
+|Authentikasi Penuh <br> *Pemegang kartu terdaftar 3DS* | **Transaksi Berhasil:** 5211 1111 1111 1117 <br> **Transaksi Gagal oleh Bank:** 5111 1111 1111 1118|
+|Authentikasi Sebagian <br> *Pemegang kartu tidak <br> terdaftar 3DS* | **Transaksi Berhasil:** 5410 1111 1111 1116 <br> **Transaksi Challenge oleh FDS:** 5510 1111 1111 1115 <br> **Transaksi Gagal oleh FDS:** 5411 1111 1111 1115 <br> **Transaksi Gagal oleh Bank:** 5511 1111 1111 1114|
+
+<br>
+
+#### Kartu spesifik per bank
+
+##### Transaksi Berhasil dengan 3D Secure
+
+|Bank | Card Number | <span>|
+|-----|-------------|-------|
+|**Mandiri** <br> *Authentikasi Penuh* | <br> 4617 0069 5974 6656 | <br> 5573 3810 7219 6900|
+|*Authentikasi Sebagian* | 4617 0017 4194 2101 | 5573 3819 9982 5417|
+|*Mandiri Debit* | 4097 6658 2970 8136 ||
+|**CIMB** <br> *Authentikasi Penuh* | <br> 4599 2078 8712 2414 | <br> 5481 1698 1883 2479|
+|*Authentikasi Sebagian* | 4599 2039 9705 2898 | 5481 1671 2103 2563|
+|**BNI** <br> *Authentikasi Penuh* | <br> 4105 0586 8948 1467 | <br> 5264 2210 3887 4659|
+|*Authentikasi Sebagian* | 4105 0525 4151 2148 | 5264 2249 7176 1016|
+|*BNI Private Label* | 1946 4159 8148 7684 ||
+|**BCA** <br> *Authentikasi Penuh* | <br> 4773 7760 5705 1650 | <br> 5229 9031 3685 3172|
+|*Authentikasi Sebagian* | 4773 7738 1098 1190 | 5229 9073 6430 3610|
+|**BRI** <br> *Authentikasi Penuh* | <br> 4365 0263 3573 7199 | <br> 5520 0298 7089 9100|
+|*Authentikasi Sebagian* | 4365 0278 6723 2690 | 5520 0254 8646 8439|
+|**Maybank** <br> *Authentikasi Penuh* | <br> 4055 7720 2603 6004 | <br> 5520 0867 5210 2334|
+|*Authentikasi Sebagian* | 4055 7713 3514 4012 | 5520 0867 7490 8452|
+
+<br>
+
+##### Transaksi Gagal
+
+|Bank | Nomor kartu | <span>|
+|-----|-------------|-------|
+|**Mandiri** | 4617 0085 6083 1760 | 5573 3840 4322 4447|
+|**Mandiri Debit** | 4097 6676 7217 8631 ||
+|**CIMB** | 4599 2060 0973 3090 | 5481 1691 9178 2739|
+|**BNI** | 4105 0541 4854 1363 | 5264 2235 3013 1711|
+|**BNI Private Label** | 1946 4102 7193 1269 ||
+|**BCA** | 4773 7752 0201 1809 | 5229 9034 0542 3830|
+|**BRI** | 4365 0299 9362 0368 | 5520 0219 0920 3008|
+|**Maybank** | 4055 7796 2846 0474 | 5520 0883 1465 3770|
+
+<br>
+
+##### Tanggal expiry and CVV
+
+|Deskripsi | Nilai|
+|------|------|
+|Expiry Month | 01|
+|Expiry Year | 2020|
+|CVV | 123|
+
+</div><!-- End of Credit Card-->
+<div class="tab-pane" id="direct-debit"><!-- Direct Debit-->
+
+### Direct Debit
+
+|Metode Pembayaran | Deskripsi|
+|----------|------------|
+|Mandiri Clickpay | **Nomor kartu:** 4111 1111 1111 1111 <br> **Token berhasil:** 000000 <br> **Token gagal:** 111111|
+|CIMB Clicks | Midtrans akan mengalihkan tes transaksi CIMB Clicks ke simulasi pembayaran.  <br> **Transaksi sukses:** testuser00  <br> **Transaksi gagal:** testuser01|
+|ePay BRI | Midtrans akan mengalihkan tes transaksi ePay BRI ke simulasi pembayaran. <br> **Transaksi Sukses:** testuser00 <br> **Transaksi Gagal:** testuser03|
+|BCA Klikpay | Midtrans akan mengalihkan tes transaksi BCA Klikpay ke simulasi pembayaran.|
+|KlikBCA | Midtrans akan mendaftarkan user id terisi di KlikBCA input. Untuk melakukan tes transaksi, gunakan [KlikBca Simulator](https://api.sandbox.midtrans.com:7676/bca/klikbca/index).|
+
+</div><!-- End of Direct Debit-->
+<div class="tab-pane" id="bank-transfer"><!-- Bank Transfer-->
+
+### Bank Transfer
+
+|Metode Pembayaran | Deskripsi |
+|----------------|------------|
+|Permata Virtual Account | Midtrans akan membuat nomor dummy Permata Virtual Account. Untuk melakukan tes transaksi, gunakan [simulator Permata Virtual Account](https://api.sandbox.midtrans.com:7676/permata/va/index).|
+|BCA Virtual Account | Midtrans akan membuat nomor dummy BCA Virtual Account. Untuk melakukan tes transaksi, gunakan [simulator BCA Virtual Account](https://api.sandbox.midtrans.com:7676/bca/va/index).|
+|Mandiri Bill Payment | Midtrans akan membuat dummy Kode Pembayaran untuk pembayaran via Mandiri e-channel (Internet Banking, SMS Banking, Mandiri ATM). Untuk melakukan tes transaksi, gunakan [ simulator Mandiri Bill Payment](https://api.sandbox.midtrans.com:7676/mandiri/bill/index).|
+
+</div><!-- End of bank Transfer-->
+<div class="tab-pane" id="e-wallet"><!-- e-Wallet-->
+
+## e-Wallet
+
+|Payment Methods | Deskripsi|
+|----------|------------|
+|Telkomsel Cash | **Transaksi berhasil:** 0811111111 <br> **Transaksi gagal:** 0822222222|
+|XL Tunai | Midtrans akan membuat Merchant Code dan Order ID testing untuk XL Tunai. Untuk melakukan tes transaksi, gunakan [Simulator XL Tunai](https://api.sandbox.midtrans.com:7676/xl/tunai/index).|
+|Indosat Dompetku | **Nomor transaksi berhasil:** 08123456789 <br> **Nomor transaksi gagal:** Nomor selain 08123456789|
+|Mandiri E-cash | **Nomor transaksi berhasil:** 0987654321 <br> **PIN:** 12345 <br> **OTP:** 12123434|
+
+</div><!-- End of e-Wallet-->
+<div class="tab-pane" id="conv-store"><!-- Convenience Store-->
+
+### Convenience Store
+
+|Metode Pembayaran | Deskripsi|
+|----------|------------|
+|Indomaret | Midtrans akan membuat kode pembayaran Indomaret testing. Untuk melakukan tes transaksi, gunakan [simulator Indomaret](https://api.sandbox.midtrans.com:7676/indomaret/index).|
+|Kioson | Midtrans akan membuat kode pembayaran Kioson testing. Untuk melakukan tes transaksi, gunakan [simulator Kioson](https://api.sandbox.midtrans.com:7676/kioson/index).|
+
+</div><!-- End of Convenience Store-->
+</div><!-- End of Tab Content-->
+</div><!-- end of header-->

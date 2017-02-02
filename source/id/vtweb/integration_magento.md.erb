@@ -1,0 +1,135 @@
+<div class="row">
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="PHP" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_php.html" do image_tag("/images/php_gray.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Prestashop" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_prestashop.html" do image_tag("/images/prestashop_gray.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Magento" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_magento.html" do image_tag("/images/magento.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Opencart" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_opencart.html" do image_tag("/images/opencart_gray.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Woocommerce" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_woocommerce.html" do image_tag("/images/woocommerce_gray.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Drupal" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_drupal.html" do image_tag("/images/drupal_grey.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="WHMCS" data-placement="bottom">
+		<%= link_to "/id/vtweb/integration_whmcs.html" do image_tag("/images/whmcs_gray.png") end %>
+		</div>
+	</div>
+</div>
+
+{::options parse_block_html="true" /}
+
+<div class="tab-content">
+  <div class="tab-pane active">
+### Tahapan Integrasi VT-Web Magento
+<ol>
+  <li>Instalasi Plugin</li>
+  <li>Tes Transaksi</li>
+<!--  <li>Cicilan (Opsional)</li> -->
+</ol>
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#magento-step1" data-toggle="tab">Instalasi Plugin</a></li>
+  <li><a href="#magento-step2" data-toggle="tab">Tes Transaksi</a></li>
+<!--  <li><a href="#magento-step3" data-toggle="tab">Cicilan</a></li> -->
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="magento-step1">
+
+#### Apa yang Diperlukan
+
+1. Sebuah toko online berbasis Magento. (Plugin ini di-test dengan Magento versi 1.9)
+2. PHP versi minimal 5.4.
+3. Plugin Midtrans untuk Magento \[ [Github](https://github.com/veritrans/vtweb-magento) \| [Zip](https://github.com/veritrans/vtweb-magento/archive/master.zip) \].
+
+#### Proses Instalasi
+
+1. Ekstrak file VTWebmagento-master.zip yang sudah di-download sebelumnya.
+2. Upload / copy folder **app**, **lib**, dan **skin** yang baru diekstrak ke dalam direktori Magento anda.
+
+#### Konfigurasi Plugin
+
+Untuk melakukan konfigurasi plugin Midtrans-Magento:
+
+1. Masuk ke halaman admin Magento anda.
+2. Buka menu **System - Configuration** pada halaman administrasi Magento.
+3. Pada bagian **Sales-Payment Methods** cari tab Veritrans. Bila tab Veritrans belum ada, klik **Save Config** terlebih dahulu.
+4. Klik general untuk memulai konfigurasi.
+5. Masukkan data-data yang diperlukan seperti di bawah ini kemudian klik **Save Config**.
+	<br /><br />
+	![Magento Config](/images/magen01.png){: .img-responsive .img-thumbnail}
+<br /><br />
+6. Login ke portal MAP untuk mengubah isi pada beberapa opsi berikut:
+
+	| URL Role | Redirect URL|
+	|---|---|
+	| Payment Notification URL | http://[your_shop’s_homepage]/vtweb/payment/notification |
+	| Finish Redirect URL | http://[your_shop’s_homepage]/vtweb/payment/response |
+	| Error Redirect URL | http://[your_shop’s_homepage]/vtweb/payment/response |
+	| Unfinish Redirect URL | http://[your_shop’s_homepage]/vtweb/payment/response |
+
+
+	![Magento URL](/images/magento00.png){: .img-responsive .img-thumbnail}
+
+</div>
+
+<div class="tab-pane" id="magento-step2">
+<br />
+
+Di tahap ini, kita akan mencoba melakukan tes transaksi. Jika anda menggunakan akun sandbox, berbagai macam skenario transaksi dapat diuji coba, daftar skenario beserta informasi akun yang tersedia untuk uji coba dapat dilihat di [sini](/id/api/test_credentials.html).
+
+Anda sangat disarankan untuk melakukan tes transaksi menggunakan VT-Web. Manfaat utama melakukan tes transaksi adalah:
+
+1. Memahami flow pembayaran VT-Web
+2. Mengetahui status pembayaran melalui MAP (Merchant Administration Portal) dan notifikasi
+
+Saat ini, kita kita akan mencoba melakukan transaksi kartu kredit 3D Secure yang berhasil. Kartu kredit yang dapat digunakan adalah:
+
+| Jenis | Visa |
+|---|---|
+| Nomor Kartu | 4811 1111 1111 1114 |
+| CVV | 123 |
+| Exp. Month | 01 |
+| Exp. Year | 2020 |
+
+<br />
+Bila Setting plugin sudah benar, maka akan tampil halaman pembayaran VT-Web.
+<br /><br />
+![VT-Web Complete](/images/vtweb_complete.png){: .img-responsive .img-thumbnail}
+
+---
+
+Cek beberapa poin berikut setelah transaksi diatas berhasil dilakukan untuk memastikan plugin sudah ter-install dan bekerja dengan baik.
+
+| Cek Point | Hasil yang diharapkan | Bila hasil tidak sesuai dengan yang diharapkan |
+|---|---|---|
+| Cek order status di back end Magento | Order status berubah menjadi **processing** | Cek setting endpoint/payment notification URL di MAP |
+| Merchant mendapatkan email notifikasi| Dapat | Cek setting di MAP, menu setting - email notification |
+| Customer mendapat email notifikasi | Dapat | Cek setting di MAP, menu setting - email notification |
+
+</div>
+</div>
+</div>
+</div>

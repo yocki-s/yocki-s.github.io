@@ -1,0 +1,77 @@
+{::options parse_block_html="true" /}
+
+## Preparation
+***
+
+##### ***Goal:*** *Merchants complete the pre-requisite before integrating with Midtrans*
+***
+
+There are a few pre-requisite before integrating with Midtrans:
+
+{: #step1}
+### 1. Register to Midtrans Sandbox/Production account.
+
+Midtrans has one central login to access both production and sandbox account. Sandbox is utilized for development period while production is utilized when the merchant has completed the integration process and want to go live. Data and transaction made on sandbox account will not trigger an actual purchase while in production account will trigger an actual process. Register for Midtrans Sandbox/Production account [here](https://account.midtrans.com/register). 
+
+Once logged in, there will be a small button on the header of the dashboard that shows you on whether you are in the production or sandbox environment. The color of nagivation sidebar are also set different between Production (light blue) and Sandbox (dark blue) for further clarity.
+
+![production](welcome/production.png){: .img-responsive .img-thumbnail}
+<br>
+![sandbox](welcome/sandbox.png){: .img-responsive .img-thumbnail}
+
+<br>
+
+{: #step2}
+### 2. Fill in the required information in Merchant Admin Portal (MAP). 
+
+The required fields can be found under [Settings - General Settings](https://dashboard.sandbox.midtrans.com/settings/general_info "General Settings").<br />
+
+![General Setting](welcome/gen_set.png){: .img-responsive .img-thumbnail}
+
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-warning-sign" aria-hidden="true">__Warning!__ </span>
+  <span class="sr-only">Warning!</span>
+
+- Merchant Name: <Strong>DO NOT</Strong> input symbols.
+- Valid Merchant URL: 
+	<ul>Lesser than 25 char.</ul>
+	<ul>Accepted symbols are ':', '/', '.'.</ul>
+
+</div>
+<br>
+
+{: #step3}
+### 3. Take note of your account Access Keys. 
+
+Your account keys can be found under [Settings - Access Keys](https://dashboard.sandbox.midtrans.com/settings/config_info "Access Keys")<br />
+
+![Access Keys](welcome/access_key.png){: .img-responsive .img-thumbnail}
+
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">__Caution!__</span>
+  <span class="sr-only">Caution:</span>
+ <br>Be discreet on your 'Server Key'.
+</div>
+
+<br>
+
+{: #step4}
+### 4. Configure Redirection URL
+
+Customer will be returned to your website after payment process is completed. 
+
+![vtweb-diagram](welcome/vtweb-diagram.png){: .img-responsive .img-thumbnail}
+
+Go to [Settings - Configuration](https://dashboard.sandbox.midtrans.com/settings/vtweb_configuration) menu to manage the redirection URL.
+<br />
+![redirect_url](welcome/redirect_url.png){: .img-responsive .img-thumbnail}
+<br />
+
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-warning-sign" aria-hidden="true">__Warning!__ </span>
+  <span class="sr-only">Warning!</span>
+
+Please fill the URL with http:// or https://
+
+</div>
+<br>

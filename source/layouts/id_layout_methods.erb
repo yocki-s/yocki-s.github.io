@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- Bing Validate -->
+    <meta name="msvalidate.01" content="846642D2B12ABB4747D70776D2056651"/>
+    <!-- Google Webmaster Validate -->
+    <meta name="google-site-verification" content="uUeOdHBzl0nbyvdyeRHKGIHPxnIpJDTTnWv-QfgkxRs" />
+    <!-- FB OG -->
+    <meta property="og:title" content="Midtrans Payments || Tech Docs for online payment system"/>
+    <meta property="og:site_name" content="Midtrans"/>
+    <meta property="og:description" content="Technical Documentation to implement online payment system. Available for various payment methods, in various website programming language."/>
+    <meta property="fb:app_id" content="404252079606310"/>
+    <meta property="og:image" content="//docs.midtrans.com/images/midtrans/favicon/apple-touch-icon-120x120.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veritrans API Documentation. Payment Gateway Indonesia, transaksi online lebih aman, mudah, cepat! Veritrans memberi solusi sistem payment gateway terbaik untuk e-commerce di Indonesia.">
+    <meta name="keywords" content="Veritrans, Veritrans Indonesia, payment gateway indonesia, Pembayaran Online Indonesia, online payment Indonesia, sistem transaksi online"> 
+    <meta name="google-site-verification" content="uUeOdHBzl0nbyvdyeRHKGIHPxnIpJDTTnWv-QfgkxRs" />
+    <meta name="msvalidate.01" content="846642D2B12ABB4747D70776D2056651">
+    
+    <%= stylesheet_link_tag "style" %>
+    
+    <title>Midtrans Payments - Tech Docs for online payment system</title>
+		<link rel="icon" type="image/x-icon" href="https://midtrans.com/assets/images/favicon.ico" />
+    <%= javascript_include_tag "jquery-1.10.2.min" %>
+
+    <!-- start Mixpanel -->
+    <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+        mixpanel.init("f93e9c92cf8729b32c4491fb6794689b");
+    </script>
+    <!-- end mixpanel -->
+
+    <!-- Optimizely -->
+    <script src="//cdn.optimizely.com/js/2982491356.js"></script>
+    <!-- end Optimizely -->
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="scrollspy-body">
+    <%= partial "/layouts/partials/navbar" %>
+    <div class="custom-container container">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <%= partial "/layouts/partials/id/navigation" %>
+        <div class="col-xs-12 col-sm-8 col-md-9" id="bodier">
+          <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+              <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Menu</button>
+              </p>
+              <div class="<%= request.path.gsub(/[\-\_\/]/, '-').sub(/\.html?$/, '') %>">
+                <%= yield %>
+
+                <div class="pagination">
+                  <%= id_core_paginate %>
+                </div>
+              </div>
+            </div>
+            <%= partial "/layouts/partials/methods_nav" %>
+          </div>
+        </div><!--/span-->
+      </div><!--/row-->
+    </div><!--/.container-->
+
+    <%= partial "/layouts/partials/footer" %>
+    <%= javascript_include_tag "bootstrap.min", "dropdown", "tab_custom", "useragent", "mixpanel_tracking" %>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-85529823-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('[data-toggle=offcanvas]').click(function() {
+          $('.row-offcanvas').toggleClass('active');
+        });
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        
+        $('body, .nav-overlay').bind('click', e => {
+          if ($(e.target).closest('.nav-wrapper').length == 0) {
+            // click happened outside of .navbar, so hide
+            var opened = $('.nav-wrapper').hasClass('in');
+            if (opened === true) {
+              $('.nav-wrapper').collapse('hide');
+            }
+          }
+          if ($(e.target).closest('.sub-nav-wrapper').length == 0) {
+            // click happened outside of .navbar, so hide
+            var opened = $('.sub-nav-wrapper').hasClass('in');
+            if (opened === true) {
+              $('.sub-nav-wrapper').collapse('hide');
+            }
+          }
+        });
+
+        /* PAGE OVERLAY ON NAV-TOGGLE OPEN */
+        $('.nav-wrapper').on('show.bs.collapse', () => {
+          $('.nav-overlay').addClass('active');
+        });
+        $('.nav-wrapper').on('hide.bs.collapse', () => {
+          $('.nav-overlay').removeClass('active');
+        });
+
+        /* PAGE OVERLAY ON NAV-TOGGLE OPEN */
+        $('.sub-nav-wrapper').on('show.bs.collapse', function () {
+          $('.nav-overlay').addClass('active');
+        });
+        $('.sub-nav-wrapper').on('hide.bs.collapse', function () {
+          $('.nav-overlay').removeClass('active');
+        });
+
+        mixpanel.track('id docs page viewed',{
+          'url' : location.href
+        });
+      });
+    </script>
+  </body>
+</html><!-- Veritrans.3.0-20150423 -->

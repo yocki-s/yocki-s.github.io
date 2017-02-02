@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="PHP" data-placement="bottom">
+    <%= link_to "/en/snap/integration_php.html" do image_tag("snap/php_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Prestashop" data-placement="bottom">
+    <%= link_to "/en/snap/integration_prestashop.html" do image_tag("snap/prestashop_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Magento" data-placement="bottom">
+    <%= link_to "/en/snap/integration_magento.html" do image_tag("snap/magento_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Opencart" data-placement="bottom">
+    <%= link_to "/en/snap/integration_opencart.html" do image_tag("snap/opencart_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Woocommerce" data-placement="bottom">
+    <%= link_to "/en/snap/integration_woocommerce.html" do image_tag("snap/woocommerce_gray.jpg") end %>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <div class="thumbnail" data-toggle="tooltip" title="Whmcs" data-placement="bottom">
+    <%= link_to "/en/snap/integration_whmcs.html" do image_tag("snap/whmcs.png") end %>
+    </div>
+  </div>
+</div>
+
+{::options parse_block_html="true" /}
+
+<div class="tab-content">
+  <div class="tab-pane active">
+### Snap WHMCS Integration Steps
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#whmcs-step1" data-toggle="tab"><span>Step 1</span>Plugin Installation</a></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="whmcs-step1">
+
+#### Requirements
+
+1. WHMCS v5.3.12 - v6.x (Tested up to WHMCS v7.0.2)
+2. PHP v5.4 or greater
+3. MySQL v5.0 or greater
+3. Midtrans plugin for WHMCS \[ [Github](https://github.com/veritrans/SNAP-whmcs) \| [Zip](https://github.com/veritrans/SNAP-whmcs/archive/master.zip) \].
+
+#### Installation Process
+
+1. Download the modules from this repository.
+2. Extract Whmcs-master.zip file you have previously downloaded.
+3. Upload & merged module folder that you have extracted into your WHMCS directory.
+Installation & Configuration
+4. Access your WHMCS admin page.
+5. Go to **Setup -> Payments -> Payment Gateways** menu.
+6. Click **Midtrans** payment method, then you will be redirected to configuration page.
+7. Fill the input as instructed on the screen. Click **Save Changes**.
+<br />
+    ![WHMCS Setting](snap/snap-whmcs1.png){: .img-responsive .img-thumbnail}
+<br /><br />
+8. Login to MAP portal to configure a few options below:
+
+    | URL Role | Redirect URL|
+  |---|---|
+  | Payment Notification URL | http://[your website url]/modules/gateways/callback/veritrans.php |
+  | Finish Redirect URL | http://[your website url] |
+  | Error Redirect URL | http://[your website url] |
+  | Unfinish Redirect URL | http://[your website url] |
+
+</div>
+</div>
+</div>
+</div>

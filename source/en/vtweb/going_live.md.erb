@@ -1,0 +1,93 @@
+## Going Live with VT-Web
+---
+
+##### *The tutorial below will assist you in changing the configuration from Sandbox to Production. Please choose the following integration method. If further assistance is required, please contact us at [support@midtrans.com](mailto:support@midtrans.com "email support") or visit our [support page](http://support.midtrans.com "Midtrans Support").*
+------------------
+
+<br />
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#php" data-toggle="tab">PHP</a></li>
+  <li><a href="#magento" data-toggle="tab">Magento</a></li>
+  <li><a href="#opencart" data-toggle="tab">Opencart</a></li>
+  <li><a href="#prestashop" data-toggle="tab">Prestashop</a></li>
+  <li><a href="#woocommerce" data-toggle="tab">Woocommerce</a></li>
+</ul>
+
+<br>
+
+If you have completed integrating in Sandbox (Testing Environment) and ready to go live in Production Environment, there are a few steps that need to be made:
+
+- Contact Midtrans Support to migrate from Sandbox to Production Environment.<br>Once confirmed, you can now login to Midtrans Production Dashboard at [https://account.midtrans.com/login](https://account.midtrans.com/login) with the current credentials.
+
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="php"><!-- PHP-->
+<!-- PHP -->
+- Set Veritrans-PHP library to Production Environment.<br>This can be done by changing the value `Veritrans_Config::$isProduction` into `true`.
+<br />
+
+~~~ php
+<?php
+include_once('Veritrans.php');
+
+// Set our production server key
+Veritrans_Config::$serverKey = '<your production server key>';
+
+// Use production account
+Veritrans_Config:$isProduction = true;
+...
+
+?>
+~~~
+
+<br />
+You are now integrated live with Midtrans service and ready to start transaction! 
+
+</div><!-- end of PHP-->
+<div class="tab-pane" id="magento"><!-- Magento-->
+<!-- Magento -->
+- Change `setting environment` in Midtrans plugin from development into production.
+<br />
+![Magento URL](/images/magento02.png){: .img-responsive .img-thumbnail}
+<br /><br />
+You are now integrated live with Midtrans service and ready to start transaction! 
+
+</div><!-- end of Magento-->
+<div class="tab-pane" id="opencart"><!-- Opencart-->
+<!-- Opencart -->
+- Change `setting environment` in Midtrans plugin from development into production.
+<br />
+	![OpenCart Production](/images/opencart02.png){: .img-responsive .img-thumbnail}
+<br /><br />
+You are now integrated live with Midtrans service and ready to start transaction! 
+
+</div><!-- end of Opencart-->
+<div class="tab-pane" id="prestashop"><!-- Prestashop -->
+<!-- Prestashop -->
+- Change `setting environment` in Midtrans plugin from development into production.
+<br />
+	![Prestashop Live](/images/presta02.png){: .img-responsive .img-thumbnail}
+<br /><br />
+You are now integrated live with Midtrans service and ready to start transaction! 
+
+</div><!-- end of Prestashop -->
+<div class="tab-pane" id="woocommerce"><!-- Woocommerce -->
+<!-- Woocommerce -->
+- Change `setting environment` in Midtrans plugin from development into production.
+<br /><br />
+	![Prestashop Live](/images/woocomm01.png){: .img-responsive .img-thumbnail}
+<br /><br />
+You are now integrated live with Midtrans service and ready to start transaction! 
+
+</div><!-- end of Woocommerce -->
+
+<div class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+  <span class="sr-only">Info:</span>
+**Info**:<br>Minimum transaction value on production mode is Rp 10,000.00
+</div>
+
+</div><!-- end of tab-content-->
+

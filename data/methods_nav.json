@@ -1,0 +1,103 @@
+{
+    "payment_methods": [{
+        "name": "Get Token",
+        "go_to": "#get-token"
+    },
+    {
+	    "name": "Charge",
+	    "go_to": "#Charge",
+	    "submenu": [{
+	        "name": "VT-Web",
+	        "go_to": "#vtwebcharge",
+	        "links": [{}]
+	    }, {
+	        "name": "VT-Direct: Card Payment",
+	        "go_to": "#vt-direct-card-payment",
+	        "links": [{}]
+	    },{
+	    	"name": "VT-Direct: Bank Transfer",
+	    	"go_to": "#vt-direct-bank-transfer",
+	        "links": [{
+	        	"en": "Permata VA",
+	            "link": "#bank-transfer-permata-virtual-account"
+	        },{
+	        	"en": "Mandiri Bill Payment",
+	            "link": "#bank-transfer-mandiri-bill-payment"
+	        }]
+	    },{
+	    	"name": "VT-Direct: Direct Debit",
+	    	"go_to": "#vt-direct-direct-debit",
+	        "links": [{
+	        	"en": "Mandiri Clickpay",
+	            "link": "#direct-debit-mandiri-clickpay"
+	        },{
+	        	"en": "CIMB Clicks",
+	            "link": "#direct-debit-cimb-clicks"
+	        },{
+	        	"en": "e-Pay BRI",
+	            "link": "#direct-debit-e-pay-bri"
+	        },{
+	        	"en": "BCA Klikpay",
+	            "link": "#direct-debit-bca-klikpay"
+	        }]
+	    },{
+	    	"name": "VT-Direct: e-Wallet",
+	    	"go_to": "#vt-direct-e-wallet",
+	        "links": [{
+	        	"en": "Telkomsel T-Cash",
+	            "link": "#tcashresponse"
+	        },{
+	        	"en": "XL Tunai",
+	            "link": "#xl-tunai"
+	        },{
+	        	"en": "Indosat Dompetku",
+	            "link": "#dompetku"
+	        },{
+	        	"en": "Mandiri E-cash",
+	            "link": "#mandiriecash"
+	        }]
+	    },{
+	    	"name": "VT-Direct: Convenience Store",
+	    	"go_to": "#vt-direct-convenience-store",
+	        "links": [{
+	        	"en": "Indomaret",
+	            "link": "#indomaret"
+	        }]
+	    },{
+	        "name": "Charge Feature",
+	    	"go_to": "#Charge-Feature",
+	        "links": [{
+	        	"en": "Set Custom Field",
+	            "link": "#Set-Custom-Field"
+	        },{
+	        	"en": "Set Custom Expiry",
+	            "link": "#Set-Custom-Expiry"
+	        }]
+
+	    }]
+	},
+	{
+        "name": "Capture Transaction",
+        "go_to": "#Capture"
+    },
+	{
+        "name": "Approve Transaction",
+        "go_to": "#Approve"
+    },
+	{
+        "name": "Cancel Transaction",
+        "go_to": "#Cancel"
+    },
+    {
+        "name": "Expire Transaction",
+        "go_to": "#Expire"
+    },
+	{
+        "name": "Get Transaction Status",
+        "go_to": "#Status"
+    },
+    {
+        "name": "Handling Notification",
+        "go_to": "#Validation"
+    }]
+}

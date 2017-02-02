@@ -1,0 +1,99 @@
+<div class="row">
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Sirclo" data-placement="bottom">
+		<%= link_to "/id/welcome/integration_sirclo.html" do image_tag("welcome/sirclo.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Shopify" data-placement="bottom">
+		<%= link_to "/id/welcome/integration_shopify.html" do image_tag("welcome/shopify_grey.jpg") end %>
+		</div>
+	</div>
+	<div class="col-md-2 col-sm-3 col-xs-12">
+		<div class="thumbnail" data-toggle="tooltip" title="Jejualan" data-placement="bottom">
+		<%= link_to "/id/welcome/integration_jejualan.html" do image_tag("welcome/jejualan_grey.jpg") end %>
+		</div>
+	</div>
+</div>
+
+{::options parse_block_html="true" /}
+
+### Integrasi Midtrans dengan SIRCLO
+
+Mohon selesaikan langkah di bawah ini terlebih dahulu:
+
+1. Buat toko online dengan SIRCLO.
+2. Daftar akun Midtrans di [sini](https://account.midtrans.com/register).
+3. Lengkapi kebutuhan bisnis Midtrans dengan menghubungi [tim solutions Midtrans](mailto:solutions@midtrans.com "Solutions email") dengan __SIRCLO - URL Name__ sebagai subjek dan sebutkan _Midtrans Merchant ID_ yang terdaftar.
+
+<br />
+
+#### Silahkan ikuti langkah-langkah berikut untuk memulai integrasi:
+
+1. Login ke [Merchant Administrator Portal](https://account.midtrans.com/login) Midtrans.
+
+	Anda akan menemukan nama online shop Anda, dengan environment Sandbox/Production. Pastikan Anda sedang berada di mode __Production__.
+
+	![Login MAP](welcome/affiliate/sirclo01.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+2. Pilih __Settings - Configuration__.
+
+	![Setting](welcome/affiliate/sirclo02.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+	Isi __Payment Notification URL__ dengan : `<website_anda>/payment_ipn/veritrans/notify`.<br />
+	Contoh, jika website Anda adalah www.abc.com, maka Payment Notification URL harus diisi dengan “http://www.abc.com/payment_ipn/veritrans/notify”.
+
+	Isi __Finish Redirect URL__ dengan: `<website_anda>/payment_ipn/veritrans/completed`.<br />
+	Isi __Unfinish Redirect URL__ dengan: `<website_anda>/payment_ipn/veritrans/unfinish`.<br />
+	Isi __Error Redirect URL__ dengan: `<website_anda>/payment_ipn/veritrans/error`.
+
+3. Pilih __Settings - Access Keys__
+
+	Copy __Merchant ID__ dan __Server Key__ Midtrans (untuk digunakan di langkah selanjutnya).
+
+	![access key](welcome/affiliate/sirclo04.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+4. Login ke SIRCLO Admin Panel dari toko online Anda.
+
+	![sirclo](welcome/affiliate/sirclo05.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+5. Pilih __Settings - Payment Settings__.
+
+	![sirclo](welcome/affiliate/sirclo06.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+	Dibagian Midtrans, masukan Midtrans Production _Merchant ID_ dan _Server Key_.
+
+	![sirclo](welcome/affiliate/sirclo07.png){: .img-responsive .img-thumbnail}
+	<br /><br />
+
+6. Aktifkan metode pembayaran melalui Midtrans dengan mencentang metode pembayaran yang diinginkan.
+
+	{::options parse_block_html="true" /}
+
+	<div class="alert alert-info" role="alert">
+  	<span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span>
+  	<span class="sr-only">Info:</span>
+	Anda dapat mengaktifkan semua metode pembayaran yang terdaftar di Midtrans dengan mengosongkan semua metode pembayaran.
+	</div>
+	<br />
+
+7. Anda juga dapat mengatur metode pembayaran secara cicilan dengan mengisi periode cicilan pada field _Veritrans Installment periode for BNI_ dan field _Veritrans Installment periode for MANDIRI_. 
+
+	{::options parse_block_html="true" /}
+
+	<div class="alert alert-info" role="alert">
+  	<span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span>
+  	<span class="sr-only">Info:</span>
+	Untuk cicilan:
+
+	- Anda harus memiliki akun Bank BNI atau Mandiri.
+	- Silahkan bertemu dan negosiasi dengan pihak Bank terkait periode cicilan dan bunganya.
+	- Silahkan hubungi kami di [solutions@midtrans.com](mailto:solutions@midtrans.com) untuk informasi lebih lanjut.
+	</div>
+
+8. Klik Save atau Update
