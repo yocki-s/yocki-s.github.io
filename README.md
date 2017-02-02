@@ -1,4 +1,4 @@
-Thunder is the documentation project for Veritrans API. Target audiences are merchants and their web developers. 
+This is Dummy of Midtrans Docs.
 
 Requirements:
 * Ruby >= 1.9.3 
@@ -13,7 +13,7 @@ Middleman is a static site generator.
 ## How to Update Documentation
 * Run ```bundle exec middleman build``` from inside project folder in command-line.
 * A static website will be generated in the `public` folder.
-* Copy the content of the `public` folder and paste it into [veritrans.github.io](https://github.com/veritrans/veritrans.github.io) local repo in your computer. **IMPORTANT:** _Delete all files inside the local github.io folder_ ***EXCEPT*** _`CNAME` and `sitemap.xml`_
+* Copy the content of the `public` folder and paste it into [yocki-s.github.io](https://github.com/yocki-s/yocki-s.github.io) local repo in your computer. **IMPORTANT:** _Delete all files inside the local github.io folder_ ***EXCEPT*** _`CNAME` and `sitemap.xml`_
 * Run `commit` and `push` **without** pulling first.
 
 ## How to Create New Page
