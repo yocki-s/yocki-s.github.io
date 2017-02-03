@@ -542,7 +542,8 @@ Contoh kode PHP berikut digunakan untuk mendapatkan Snap token.</p>
   <span class="s1">'gross_amount'</span> <span class="o">=&gt;</span> <span class="mi">145000</span><span class="p">,</span> <span class="c1">// no decimal allowed
 </span><span class="p">);</span>
 
-<span class="c1">// Optional, mandatory for mandiri bill payment
+<span class="c1">// Mandatory for Mandiri bill payment and BCA KlikPay
+// Optional for other payment methods
 </span><span class="nv">$item1_details</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
     <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="s1">'a1'</span><span class="p">,</span>
     <span class="s1">'price'</span> <span class="o">=&gt;</span> <span class="mi">50000</span><span class="p">,</span>
@@ -558,8 +559,7 @@ Contoh kode PHP berikut digunakan untuk mendapatkan Snap token.</p>
     <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s2">"Orange"</span>
     <span class="p">);</span>
 
-<span class="c1">// Optional, mandatory for mandiri bill payment
-</span><span class="nv">$item_details</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span><span class="nv">$item1_details</span><span class="p">,</span> <span class="nv">$item2_details</span><span class="p">);</span>
+<span class="nv">$item_details</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span><span class="nv">$item1_details</span><span class="p">,</span> <span class="nv">$item2_details</span><span class="p">);</span>
 
 <span class="c1">// Optional
 </span><span class="nv">$billing_address</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
