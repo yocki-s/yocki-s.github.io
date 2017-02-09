@@ -421,8 +421,8 @@
 <p>Currently, Snap provides a few additional features:</p>
 
 <ol>
-  <li>Choose The Method of Payment</li>
-  <li>Set Custom Expiration</li>
+  <li>Choosing of Payment Method</li>
+  <li>Setting of Custom Expiration</li>
 </ol>
 
 <p>We also provide additional feature for Credit Card Payment:</p>
@@ -438,7 +438,7 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#payment-options" data-toggle="tab">Choose The Method of Payment</a></li>
+  <li class="active"><a href="#payment-options" data-toggle="tab">Choosing of Payment Method</a></li>
   <li><a href="#custom-expiry" data-toggle="tab">Custom Expiry</a></li>
   <li><a href="#installment" data-toggle="tab">Installment</a></li>
   <li><a href="#bin-promo" data-toggle="tab">BIN Filter</a></li>
@@ -448,7 +448,7 @@
     <!-- step 1-->
     <!-- One -->
 
-    <h3 id="choose-the-method-of-payment">Choose The Method of Payment</h3>
+    <h3 id="choosing-of-payment-method">Choosing of Payment Method</h3>
 
     <p>On <a href="integration_php.html#step1">Snap – Integration</a> section, all available payments for the merchant are activated by default. Under some condition, you might need to display only some of the payment methods available. You need to add this parameter: </p>
 
@@ -495,7 +495,7 @@ The code above will display only credit card payment method on Snap.
 
   <div class="tab-pane" id="custom-expiry">
 
-    <h3 id="set-custom-expiry">Set Custom Expiry</h3>
+    <h3 id="setting-of-custom-expiration">Setting of Custom Expiration</h3>
 
     <p>Set Custom Expiry feature enables merchant to set an expiry time of payment for every transaction. Following the test transaction on <a href="integration_php.html#step1">integration</a>, the sample PHP code is:<br /></p>
 
@@ -604,9 +604,9 @@ The following figure displays the Snap payment page with online installment feat
 
     <h4 id="offline-installment">Offline Installment</h4>
 
-    <p>To allow installment feature with banks which doesn't issue MID Installment, merchant can use offline installment feature. With offline installment feature, the transaction will be charged in full amount and the transaction will be converted into installment later. </p>
+    <p>To allow installment feature with banks which do not issue MID Installment, merchant can use offline installment feature. With offline installment feature, the transaction will be charged in full amount and the transaction will be converted into installment later. </p>
 
-    <p>Merchant simply has to add the parameter <code>installment</code> during obtain Snap token request with combination bin filter feature. The purpose of bin filter is to limit only certain cards will be allowed to do offline installment based on the agreement between merchant and issuing banks.</p>
+    <p>Merchant simply has to add the parameter <code>installment</code> during obtain Snap token request with combination bin filter feature. The purpose of bin filter is to limit certain cards from being allowed to do offline installment, based on the agreement between merchant and issuing banks.</p>
 
     <p>Following the test transaction on <a href="integration_php.html#step1">integration</a>, Example code to use this in php:</p>
 
@@ -656,7 +656,7 @@ The following figure displays the Snap payment page with offline installment fea
 
     <p>BIN filter is a feature that allows merchant to advertise bank a promotion according to the credit card issued by the bank. BIN (Bank Identification Number) is the <strong>first 1-6 digit</strong> of a credit card, which identifies the bank that issues the card. A bank generally has more than one BIN.</p>
 
-    <p>To use this feature, merchant needs to accumulate the list of BIN that currently receives promotion or simply using issuing bank name. This list of BIN or issuing bank name will then become a transaction parameter <code>whitelist_bins</code>. This transaction can only be performed exclusively by the credit card that is included in the BIN list or BIN under particular defined issuing bank.</p>
+    <p>To use this feature, merchant needs to accumulate the list of BIN that accepts promotion or simply uses the issuing bank's name. This list of BIN or issuing bank name will then become a transaction parameter <code>whitelist_bins</code>. This transaction can only be performed exclusively by the credit card that is included in the BIN list or BIN under particular defined issuing bank.</p>
 
     <p>Following the test transaction on <a href="integration_php.html#step1">integration</a>, the sample PHP code that we can make use of is:<br /></p>
 

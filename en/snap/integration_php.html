@@ -458,6 +458,12 @@
    <li>Handling HTTP Notification</li>
 </ol>
 
+    <div class="alert alert-info" role="alert">
+      <p><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+  <span class="sr-only">Info:</span>
+<strong>Info</strong>:<br />Check <a href="../welcome/pluginlibrary.html">this page</a> for complete list of supported Midtrans plugin &amp; library.</p>
+    </div>
+
     <p><br /></p>
 
     <!-- Nav tabs -->
@@ -477,7 +483,7 @@
 
         <h2 id="obtaining-snap-token">Obtaining Snap Token</h2>
 
-        <p>On this step, we will try to obtain the Snap token when performing a transaction. There is at least 3 components that are required to obtain Snap token:</p>
+        <p>On this step, we will try to obtain the Snap token when performing a transaction. There are at least 3 components that are required to obtain the Snap token:</p>
 
         <ol>
           <li><code>server key</code></li>
@@ -512,19 +518,19 @@ The example below shows a sample PHP Code to obtain Snap token.</p>
 </code></pre>
 
         <p><br />
-The sample code above utilizes the <strong>Veritrans-PHP</strong> library that can been downloaded at [<a href="https://github.com/veritrans/veritrans-php/tree/snap">Github</a> - <a href="https://github.com/veritrans/veritrans-php/archive/snap.zip">Zip</a>] and using sandbox/test environment.</p>
+The sample code above utilizes the <strong>Veritrans-PHP</strong> library that can been downloaded at [<a href="https://github.com/veritrans/veritrans-php/tree/snap">Github</a> - <a href="https://github.com/veritrans/veritrans-php/archive/snap.zip">Zip</a>] and used at the sandbox/test environment.</p>
 
-        <p><code>Veritrans.php</code> file is assumed to be located in the same directory with the source code. <code>server_key</code> value been explained on <a href="../welcome/preparation.html#step3">Getting Started - Preparation</a>.</p>
+        <p><code>Veritrans.php</code> file is assumed to be located in the same directory as the source code. <code>server_key</code> value has been explained on <a href="../welcome/preparation.html#step3">Getting Started - Preparation</a>.</p>
 
-        <p>By default, all available payment methods will be displayed in Snap page. To enable only specifics payment methods, follow the steps in <a href="other_features.html">Snap - Other Features</a>.</p>
+        <p>By default, all available payment methods will be displayed on the Snap page. To enable only specifics payment methods, follow the steps in <a href="other_features.html">Snap - Other Features</a>.</p>
 
         <hr />
 
         <h2 id="adding-transaction-information-optional">Adding Transaction Information (Optional)</h2>
 
-        <p>Merchant can add more information in the variable <code>$transaction</code>, i.e. customer data, order item data, and method of payment. This add on data will affect the Snap payment page and transaction logged on the MAP (Merchant Administration Portal).</p>
+        <p>Merchant can add more information in the variable <code>$transaction</code>, i.e. customer data, order item data, and method of payment. This addition of data will affect the Snap payment page and transaction log on the MAP (Merchant Administration Portal).</p>
 
-        <p>Most fields on Snap page will be filled automatically and information related to order item and delivery address will be displayed.<br />Details and complete Snap transaction data structure and attributes can be found in <a href="https://snap-docs.midtrans.com">Snap API reference</a>.</p>
+        <p>Most fields on Snap page will be filled automatically and information related to order item and delivery address will be displayed.<br />Complete details of Snap transaction data structure and attributes can be found in <a href="https://snap-docs.midtrans.com">Snap API reference</a>.</p>
 
         <p>PHP sample code that includes all transaction data is shown as follow:<br /></p>
 
@@ -655,7 +661,7 @@ The sample code above utilizes the <strong>Veritrans-PHP</strong> library that c
 
         <h2 id="show-snap-payment-page">Show Snap Payment page</h2>
 
-        <p>On this step, we will try to show Snap payment page. There is at least 3 components that are required to do this:</p>
+        <p>On this step, we will try to show Snap payment page. There are at least 3 components that are required to do this:</p>
 
         <ol>
           <li><code>Client Key</code></li>
@@ -663,7 +669,7 @@ The sample code above utilizes the <strong>Veritrans-PHP</strong> library that c
           <li>Snap token</li>
         </ol>
 
-        <p>Include <code>snap.js</code> into your page so snap module is available. Don’t forget to put your <code>CLIENT-KEY</code> as value of data-client-key attribute in snap.js script tag. </p>
+        <p>Include <code>snap.js</code> into your page so that snap module will be available. Don’t forget to put your <code>CLIENT-KEY</code> as the value of data-client-key attribute in snap.js script tag. </p>
 
 <pre><code class="highlight html"><span class="nt">&lt;html&gt;</span>
   <span class="nt">&lt;head&gt;</span>
@@ -699,7 +705,7 @@ The sample code above utilizes the <strong>Veritrans-PHP</strong> library that c
 
         <h2 id="transaction-status">Transaction Status</h2>
 
-        <p>Midtrans provides three means for the merchant to obtain the transaction status.</p>
+        <p>Midtrans provides three means for merchant to obtain the transaction status.</p>
 
         <ol>
           <li>Email Notification</li>
@@ -709,7 +715,7 @@ The sample code above utilizes the <strong>Veritrans-PHP</strong> library that c
 
         <h3 id="email-notification">Email Notification</h3>
 
-        <p>You can configure the email notification setting at <a href="https://dashboard.sandbox.midtrans.com/settings/email_notifications">Settings - Email Notification</a> in MAP.</p>
+        <p>Merchant can configure the email notification setting at <a href="https://dashboard.sandbox.midtrans.com/settings/email_notifications">Settings - Email Notification</a> in MAP.</p>
 
         <p><img alt="config_payment" class="img-responsive img-thumbnail" src="../../images/snap/vtweb-emailnotif.png" /></p>
 
@@ -724,7 +730,7 @@ The sample code above utilizes the <strong>Veritrans-PHP</strong> library that c
         <hr />
 
         <h3 id="https-post-notification">HTTP(S) POST Notification</h3>
-        <p>Notification through HTTP(S) POST will be sent to the merchant’s server when customer completes the payment process. You can utilize the <em>HTTP(S) POST notification</em> to update a payment status or send the item of a transaction in real time.</p>
+        <p>Notification through HTTP(S) POST will be sent to the merchant’s server when customer completes the payment process. Merchant can utilize the <em>HTTP(S) POST notification</em> to update a payment status or send the item of a transaction in real time.</p>
 
         <p>Enable Midtrans HTTP(S) POST Notification by setting the Payment Notification URL at <a title="Midtrans Snap configuration page" href="https://dashboard.sandbox.midtrans.com/settings/vtweb_configuration/">Settings - Configuration</a>.
 <br />
