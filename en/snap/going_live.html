@@ -383,7 +383,7 @@
                         <b class="caret"></b>
                         <ul class="child-menu">
                             
-                            <li class=""><a href="http://api-docs.midtrans.com">API Reference</a></li>
+                            <li class=""><a href="http://api-docs.midtrans.com">Core API Reference</a></li>
                             
                             <li class=""><a href="../reference/test.html">Testing Credential</a></li>
                             
@@ -391,7 +391,7 @@
                             
                             <li class=""><a href="../reference/security.html">Security</a></li>
                             
-                            <li class=""><a href="../reference/docslog.html">Docs Logs</a></li>
+                            <li class=""><a href="../reference/docslog.html">Docs Changelog</a></li>
                             
                             <li class=""><a href="https://support.midtrans.com">FAQ</a></li>
                             
@@ -432,6 +432,14 @@
 <p><br /></p>
 
 <p>If you have completed integrating in Sandbox (Testing Environment) and ready to go live in Production Environment, there are a few steps that need to be made:</p>
+
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"> Important!</span>
+  <span class="sr-only">Warning!</span>
+  <br />Please make sure that your production credentials for the payment methods (i.e. Merchant ID, Merchant Key) are active.<br />
+  1. To check, please click <a href="https://dashboard.midtrans.com/settings/snap_preference">here</a> and choose "Payment Channels" tab to see your active payment methods;<br />
+2. Please contact your Solutions Officer or <a href="mailto: support@midtrans.com">Midtrans Support</a> for further questions.
+</div>
 
 <div class="tab-content">
   <div class="tab-pane active" id="php">
@@ -570,7 +578,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
 
       			<div class="pagination">
-      				<ul><li class="left">« Previous: <a href="other_features.html">SNAP : Other Features</a></li><li class="right">Next: <a href="/enhttp://snap-docs.midtrans.com">SNAP : Snap API</a> »</li></ul>
+      				<ul><li class="left">« Previous: <a href="other_features.html">SNAP : Other Features</a></li><li class="right">Next: <a href="http://snap-docs.midtrans.com">SNAP : Snap API</a> »</li></ul>
       			</div>
           </div>
         </div><!--/span-->

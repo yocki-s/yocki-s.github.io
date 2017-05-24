@@ -383,7 +383,7 @@
                         <b class="caret"></b>
                         <ul class="child-menu">
                             
-                            <li class=""><a href="http://api-docs.midtrans.com">API Reference</a></li>
+                            <li class=""><a href="http://api-docs.midtrans.com">Core API Reference</a></li>
                             
                             <li class=""><a href="../reference/test.html">Testing Credential</a></li>
                             
@@ -391,7 +391,7 @@
                             
                             <li class=""><a href="../reference/security.html">Security</a></li>
                             
-                            <li class=""><a href="../reference/docslog.html">Docs Logs</a></li>
+                            <li class=""><a href="../reference/docslog.html">Docs Changelog</a></li>
                             
                             <li class=""><a href="https://support.midtrans.com">FAQ</a></li>
                             
@@ -448,11 +448,17 @@
 <div class="tab-content">
   <div class="tab-pane active">
     <h3 id="snap-whmcs-integration-steps">Snap WHMCS Integration Steps</h3>
+    <ol>
+  <li>Plugin Installation</li>
+  <li>Transaction Test</li>
+</ol>
+
     <p><br /></p>
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs">
   <li class="active"><a href="#whmcs-step1" data-toggle="tab"><span>Step 1</span>Plugin Installation</a></li>
+  <li><a href="#whmcs-step2" data-toggle="tab"><span>Step 2</span>Transaction Test</a></li>
 </ul>
 
     <div class="tab-content">
@@ -520,6 +526,86 @@ Installation &amp; Configuration</li>
             </table>
           </li>
         </ol>
+
+        <p><br /></p>
+
+      </div>
+
+      <div class="tab-pane" id="whmcs-step2">
+        <p><br /></p>
+
+        <ol>
+          <li>
+            <p>Perform successful transaction in your online store by inputing a dummy credit card number as followed (Sandbox Mode):</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Visa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Card Number</td>
+                  <td>4811 1111 1111 1114</td>
+                </tr>
+                <tr>
+                  <td>CVV</td>
+                  <td>123</td>
+                </tr>
+                <tr>
+                  <td>Exp. Month</td>
+                  <td>01</td>
+                </tr>
+                <tr>
+                  <td>Exp. Year</td>
+                  <td>2020</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p><br /></p>
+          </li>
+          <li>
+            <p>Examine a few points below to ensure plugin is installed and performs properly.</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Check Point</th>
+                  <th>Expected Result</th>
+                  <th>When Unexpected Result Occurs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Check order status in WHMCS back end</td>
+                  <td>Order status turns into <strong>Complete</strong></td>
+                  <td>Check endpoint/payment notification URL setting in MAP</td>
+                </tr>
+                <tr>
+                  <td>Merchant receives email notification</td>
+                  <td>Receive notification</td>
+                  <td>Check MAP menu setting - email notification</td>
+                </tr>
+                <tr>
+                  <td>Customer receives email notification</td>
+                  <td>Receive notification</td>
+                  <td>Check MAP menu setting - email notification</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ol>
+
+        <p><br /></p>
+
+        <div class="alert alert-warning" role="alert">
+          <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Note:</span>
+  <span class="sr-only">Note: </span>
+  <br />- Please check our <a href="../reference/test.html">testing credential menu</a> for other testing number.</p>
+        </div>
 
       </div>
     </div>

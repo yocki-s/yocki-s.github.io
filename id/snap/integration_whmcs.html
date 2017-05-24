@@ -382,7 +382,7 @@
             <b class="caret"></b>
             <ul class="child-menu">
               
-                <li class=""><a href="http://api-docs.midtrans.com">Referensi API</a></li>
+                <li class=""><a href="http://api-docs.midtrans.com">Referensi Core API</a></li>
               
                 <li class=""><a href="../reference/test.html">Testing Credential</a></li>
               
@@ -446,11 +446,16 @@
 <div class="tab-content">
   <div class="tab-pane active">
     <h3 id="tahapan-integrasi-snap-whmcs">Tahapan integrasi Snap WHMCS</h3>
+    <ol>
+  <li>Instalasi Plugin</li>
+  <li>Tes Transaksi</li>
+</ol>
     <p><br /></p>
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs">
-  <li class="active"><a href="#whmcs-step1" data-toggle="tab"><span>Step 1</span>Instalasi Plugin</a></li>
+  <li class="active"><a href="#whmcs-step1" data-toggle="tab"><span>Tahap 1</span>Instalasi Plugin</a></li>
+  <li><a href="#whmcs-step2" data-toggle="tab"><span>Tahap 2</span>Tes Transaksi</a></li>
 </ul>
 
     <div class="tab-content">
@@ -517,6 +522,79 @@
             </table>
           </li>
         </ol>
+
+        <p><br /></p>
+
+      </div>
+
+      <div class="tab-pane" id="whmcs-step2">
+        <p><br />
+1. Lakukan transaksi sukses di toko Anda dengan menggunakan nomor kartu kredit dummy berikut (sandbox mode):</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Jenis</th>
+              <th>Visa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nomor Kartu</td>
+              <td>4811 1111 1111 1114</td>
+            </tr>
+            <tr>
+              <td>CVV</td>
+              <td>123</td>
+            </tr>
+            <tr>
+              <td>Exp. Month</td>
+              <td>01</td>
+            </tr>
+            <tr>
+              <td>Exp. Year</td>
+              <td>2020</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><br />
+2. Cek beberapa poin berikut untuk memastikan plugin sudah ter-install dan bekerja dengan baik.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Cek Point</th>
+              <th>Hasil yang diharapkan</th>
+              <th>Bila hasil tidak sesuai dengan yang diharapkan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cek order status di back end WHMCS</td>
+              <td>Order status berubah menjadi <strong>Complete</strong></td>
+              <td>Cek setting endpoint/payment notification URL di MAP</td>
+            </tr>
+            <tr>
+              <td>Merchant mendapatkan email notifikasi</td>
+              <td>Dapat</td>
+              <td>Cek setting di MAP menu setting - email notification</td>
+            </tr>
+            <tr>
+              <td>Customer mendapat email notifikasi</td>
+              <td>Dapat</td>
+              <td>Cek setting di MAP menu setting - email notification</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><br /></p>
+
+        <div class="alert alert-warning" role="alert">
+          <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Note:</span>
+  <span class="sr-only">Note: </span>
+  <br />Silahkan melihat <a href="../../en/reference/test.html">halaman berikut</a> untuk daftar nomor test yang lebih lengkap.</p>
+        </div>
 
       </div>
     </div>

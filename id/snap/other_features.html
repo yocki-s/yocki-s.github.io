@@ -382,7 +382,7 @@
             <b class="caret"></b>
             <ul class="child-menu">
               
-                <li class=""><a href="http://api-docs.midtrans.com">Referensi API</a></li>
+                <li class=""><a href="http://api-docs.midtrans.com">Referensi Core API</a></li>
               
                 <li class=""><a href="../reference/test.html">Testing Credential</a></li>
               
@@ -451,10 +451,25 @@
     <p>Pada bagian <a href="integration_php.html#step1">Snap – Integrasi</a>, kami telah menjelaskan bagaimana mengaktifkan semua metode pembayaran yang anda miliki secara otomatis. Namun, pada kondisi tertentu Anda mungkin hanya ingin menampilkan beberapa metode pembayaran saja pada Snap. Untuk melakukan hal ini, Anda perlu menambahkan parameter berikut:</p>
 
 <pre><code class="highlight json">
-<span class="s2">"enabled_payments"</span><span class="err">:</span> <span class="p">[</span><span class="s2">"credit_card"</span><span class="p">,</span> <span class="s2">"mandiri_clickpay"</span><span class="p">,</span> <span class="s2">"cimb_clicks"</span><span class="p">,</span> 
-    <span class="s2">"bca_klikbca"</span><span class="p">,</span> <span class="s2">"bca_klikpay"</span><span class="p">,</span> <span class="s2">"bri_epay"</span><span class="p">,</span> <span class="s2">"telkomsel_cash"</span><span class="p">,</span> <span class="s2">"echannel"</span><span class="p">,</span> 
-    <span class="s2">"bbm_money"</span><span class="p">,</span> <span class="s2">"xl_tunai"</span><span class="p">,</span> <span class="s2">"indosat_dompetku"</span><span class="p">,</span> <span class="s2">"mandiri_ecash"</span><span class="p">,</span> <span class="s2">"permata_va"</span><span class="p">,</span>
-    <span class="s2">"bca_va"</span><span class="p">,</span> <span class="s2">"other_va"</span><span class="p">,</span> <span class="s2">"kioson"</span><span class="p">,</span> <span class="s2">"indomaret"</span><span class="p">]</span>
+<span class="s2">"enabled_payments"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="s2">"credit_card"</span><span class="p">,</span>
+    <span class="s2">"mandiri_clickpay"</span><span class="p">,</span>
+    <span class="s2">"cimb_clicks"</span><span class="p">,</span>
+    <span class="s2">"bca_klikbca"</span><span class="p">,</span>
+    <span class="s2">"bca_klikpay"</span><span class="p">,</span>
+    <span class="s2">"bri_epay"</span><span class="p">,</span>
+    <span class="s2">"telkomsel_cash"</span><span class="p">,</span>
+    <span class="s2">"echannel"</span><span class="p">,</span>
+    <span class="s2">"bbm_money"</span><span class="p">,</span>
+    <span class="s2">"xl_tunai"</span><span class="p">,</span>
+    <span class="s2">"indosat_dompetku"</span><span class="p">,</span>
+    <span class="s2">"mandiri_ecash"</span><span class="p">,</span>
+    <span class="s2">"permata_va"</span><span class="p">,</span>
+    <span class="s2">"bca_va"</span><span class="p">,</span>
+    <span class="s2">"other_va"</span><span class="p">,</span>
+    <span class="s2">"kioson"</span><span class="p">,</span>
+    <span class="s2">"Indomaret"</span>
+<span class="p">]</span>
 
 </code></pre>
 

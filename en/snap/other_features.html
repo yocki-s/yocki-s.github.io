@@ -383,7 +383,7 @@
                         <b class="caret"></b>
                         <ul class="child-menu">
                             
-                            <li class=""><a href="http://api-docs.midtrans.com">API Reference</a></li>
+                            <li class=""><a href="http://api-docs.midtrans.com">Core API Reference</a></li>
                             
                             <li class=""><a href="../reference/test.html">Testing Credential</a></li>
                             
@@ -391,7 +391,7 @@
                             
                             <li class=""><a href="../reference/security.html">Security</a></li>
                             
-                            <li class=""><a href="../reference/docslog.html">Docs Logs</a></li>
+                            <li class=""><a href="../reference/docslog.html">Docs Changelog</a></li>
                             
                             <li class=""><a href="https://support.midtrans.com">FAQ</a></li>
                             
@@ -453,10 +453,25 @@
     <p>On <a href="integration_php.html#step1">Snap – Integration</a> section, all available payments for the merchant are activated by default. Under some condition, you might need to display only some of the payment methods available. You need to add this parameter: </p>
 
 <pre><code class="highlight json">
-<span class="s2">"enabled_payments"</span><span class="err">:</span> <span class="p">[</span><span class="s2">"credit_card"</span><span class="p">,</span> <span class="s2">"mandiri_clickpay"</span><span class="p">,</span> <span class="s2">"cimb_clicks"</span><span class="p">,</span> 
-    <span class="s2">"bca_klikbca"</span><span class="p">,</span> <span class="s2">"bca_klikpay"</span><span class="p">,</span> <span class="s2">"bri_epay"</span><span class="p">,</span> <span class="s2">"telkomsel_cash"</span><span class="p">,</span> <span class="s2">"echannel"</span><span class="p">,</span> 
-    <span class="s2">"bbm_money"</span><span class="p">,</span> <span class="s2">"xl_tunai"</span><span class="p">,</span> <span class="s2">"indosat_dompetku"</span><span class="p">,</span> <span class="s2">"mandiri_ecash"</span><span class="p">,</span> <span class="s2">"permata_va"</span><span class="p">,</span>
-    <span class="s2">"bca_va"</span><span class="p">,</span> <span class="s2">"other_va"</span><span class="p">,</span> <span class="s2">"kioson"</span><span class="p">,</span> <span class="s2">"indomaret"</span><span class="p">]</span>
+<span class="s2">"enabled_payments"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="s2">"credit_card"</span><span class="p">,</span>
+    <span class="s2">"mandiri_clickpay"</span><span class="p">,</span>
+    <span class="s2">"cimb_clicks"</span><span class="p">,</span>
+    <span class="s2">"bca_klikbca"</span><span class="p">,</span>
+    <span class="s2">"bca_klikpay"</span><span class="p">,</span>
+    <span class="s2">"bri_epay"</span><span class="p">,</span>
+    <span class="s2">"telkomsel_cash"</span><span class="p">,</span>
+    <span class="s2">"echannel"</span><span class="p">,</span>
+    <span class="s2">"bbm_money"</span><span class="p">,</span>
+    <span class="s2">"xl_tunai"</span><span class="p">,</span>
+    <span class="s2">"indosat_dompetku"</span><span class="p">,</span>
+    <span class="s2">"mandiri_ecash"</span><span class="p">,</span>
+    <span class="s2">"permata_va"</span><span class="p">,</span>
+    <span class="s2">"bca_va"</span><span class="p">,</span>
+    <span class="s2">"other_va"</span><span class="p">,</span>
+    <span class="s2">"kioson"</span><span class="p">,</span>
+    <span class="s2">"Indomaret"</span>
+<span class="p">]</span>
 
 </code></pre>
 
@@ -654,7 +669,7 @@ The following figure displays the Snap payment page with offline installment fea
 
     <h3 id="bin-filter">BIN Filter</h3>
 
-    <p>BIN filter is a feature that allows merchant to advertise bank a promotion according to the credit card issued by the bank. BIN (Bank Identification Number) is the <strong>first 1-6 digit</strong> of a credit card, which identifies the bank that issues the card. A bank generally has more than one BIN.</p>
+    <p>BIN filter is a feature that allows merchant to accept only Credit Card within specific set of BIN numbers, useful for certain bank promo/discount payment by accepting only credit card issued by that bank. BIN (Bank Identification Number) is the <strong>first 1-6 digit</strong> of a credit card, which identifies the bank that issues the card. A bank generally has more than one BIN.</p>
 
     <p>To use this feature, merchant needs to accumulate the list of BIN that accepts promotion or simply uses the issuing bank's name. This list of BIN or issuing bank name will then become a transaction parameter <code>whitelist_bins</code>. This transaction can only be performed exclusively by the credit card that is included in the BIN list or BIN under particular defined issuing bank.</p>
 

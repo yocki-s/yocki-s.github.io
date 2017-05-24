@@ -383,7 +383,7 @@
                         <b class="caret"></b>
                         <ul class="child-menu">
                             
-                            <li class=""><a href="http://api-docs.midtrans.com">API Reference</a></li>
+                            <li class=""><a href="http://api-docs.midtrans.com">Core API Reference</a></li>
                             
                             <li class=""><a href="../reference/test.html">Testing Credential</a></li>
                             
@@ -391,7 +391,7 @@
                             
                             <li class=""><a href="../reference/security.html">Security</a></li>
                             
-                            <li class=""><a href="../reference/docslog.html">Docs Logs</a></li>
+                            <li class=""><a href="../reference/docslog.html">Docs Changelog</a></li>
                             
                             <li class=""><a href="https://support.midtrans.com">FAQ</a></li>
                             
@@ -456,6 +456,7 @@
   <li>Show Snap Payment page</li>
   <li>Transaction Status</li>
    <li>Handling HTTP Notification</li>
+   <li>Get Status Process</li>
 </ol>
 
     <div class="alert alert-info" role="alert">
@@ -472,6 +473,7 @@
   <li><a href="#step2" data-toggle="tab"><span>Step 2</span>Show Snap Payment page</a></li>
   <li><a href="#step3" data-toggle="tab"><span>Step 3</span>Transaction Status</a></li>
   <li><a href="#step4" data-toggle="tab"><span>Step 4</span>Handling Notification</a></li>
+  <li><a href="#step5" data-toggle="tab"><span>Step 5</span>Get Status Process</a></li>
 </ul>
 
     <div class="tab-content">
@@ -2146,6 +2148,102 @@ Make sure your Payment Notification URL is not the same as your localhost addres
 
       </div>
       <!-- end of step 4-->
+      <div class="tab-pane" id="step5">
+        <!-- step 5-->
+
+        <!-- Lima - Get status -->
+
+        <h2 id="get-status-process">Get Status Process</h2>
+
+        <p>In this step, we will try using get status process to retrieving information from a transaction that has occured. Here is a sample code to perform the get status process using <strong>Veritrans-php</strong> library. </p>
+
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">include_once</span><span class="p">(</span><span class="nb">dirname</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">'/veritrans/Veritrans.php'</span><span class="p">);</span> <span class="c1">//include PHP library
+</span>
+<span class="nx">Veritrans_Config</span><span class="o">::</span><span class="nv">$serverKey</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">Your</span> <span class="nx">Server</span> <span class="nx">Key</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="nx">Veritrans_Config</span><span class="o">::</span><span class="nv">$isProduction</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kc">true</span> <span class="o">/</span> <span class="kc">false</span><span class="o">&gt;</span><span class="p">;</span>   <span class="c1">// false = sandbox
+</span><span class="nv">$order_status_obj</span> <span class="o">=</span> <span class="nx">Veritrans_Transaction</span><span class="o">::</span><span class="na">status</span><span class="p">(</span><span class="nv">$order</span><span class="p">);</span>
+<span class="nv">$status</span> <span class="o">=</span> <span class="nv">$order_status_obj</span><span class="o">-&gt;</span><span class="na">transaction_status</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+
+        <p><br />
+Here's a sample code to do the get status process after a certain time duration. This code can run at certain interval (eg: every 6 minutes) or run manually.</p>
+
+<pre><code class="highlight php"><span class="cp">&lt;?php</span> 
+<span class="k">include_once</span><span class="p">(</span><span class="nb">dirname</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">'/veritrans/Veritrans.php'</span><span class="p">);</span>
+<span class="nx">Veritrans_Config</span><span class="o">::</span><span class="nv">$serverKey</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">Your</span> <span class="nx">Server</span> <span class="nx">Key</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="nx">Veritrans_Config</span><span class="o">::</span><span class="nv">$isProduction</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kc">true</span> <span class="o">/</span> <span class="kc">false</span><span class="o">&gt;</span><span class="p">;</span>   <span class="c1">// false = sandbox
+</span>
+<span class="sd">/**
+ * Assume we can load order data from database to $orders array
+ * Each $order is an object, with property of:
+ * $order-&gt;timestamp : unix timestamp when order is created (timestamp)
+ * $order-&gt;order_id  : order_id that is sent to Midtrans API (string)
+ * $order-&gt;transaction_status : status of the order (string)
+ * $order-&gt;set_status($status): update order status according to parameter (string)
+ * $order-&gt;save()    : save the order to database
+ */</span>
+<span class="nv">$orders</span> <span class="o">=</span> <span class="cm">/* LOAD FROM DATABASE AS ARRAY */</span> <span class="p">;</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$orders</span> <span class="k">as</span> <span class="nv">$order</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//determine how long the order has been made (in seconds).
+</span>  <span class="nv">$duration_since_order</span> <span class="o">=</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">;</span>
+  
+  <span class="c1">//check If the order after 360 seconds (6 minutes), and still no pending/capture/settlement/deny/cancel/failure status.
+</span>  <span class="k">if</span> <span class="p">(</span> <span class="nv">$duration_since_order</span> <span class="o">&gt;</span> <span class="mi">360</span> <span class="o">&amp;&amp;</span> <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">transaction_status</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">){</span>
+    <span class="c1">//Do get status for that order
+</span>    <span class="nv">$order_status_obj</span> <span class="o">=</span> <span class="nx">Veritrans_Transaction</span><span class="o">::</span><span class="na">status</span><span class="p">(</span><span class="nv">$order</span><span class="o">-&gt;</span><span class="na">order_id</span><span class="p">);</span>
+    <span class="nv">$status</span> <span class="o">=</span> <span class="nv">$order_status_obj</span><span class="o">-&gt;</span><span class="na">transaction_status</span><span class="p">;</span>
+    
+    <span class="c1">//Update order status &amp; save to database
+</span>    <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">set_status</span><span class="p">(</span><span class="nv">$status</span><span class="p">);</span>
+    <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+
+        <p><br /></p>
+
+        <h3 id="get-status-response">Get status response</h3>
+
+        <h4 id="success-response">Success Response</h4>
+
+<pre><code class="highlight json"><span class="p">{</span>
+ <span class="s2">"status_code"</span> <span class="p">:</span> <span class="s2">"200"</span><span class="p">,</span>
+  <span class="s2">"status_message"</span> <span class="p">:</span> <span class="s2">"Success, transaction found"</span><span class="p">,</span>
+  <span class="s2">"transaction_id"</span> <span class="p">:</span> <span class="s2">"249fc620-6017-4540-af7c-5a1c25788f46"</span><span class="p">,</span>
+  <span class="s2">"masked_card"</span> <span class="p">:</span> <span class="s2">"481111-1114"</span><span class="p">,</span>
+  <span class="s2">"order_id"</span> <span class="p">:</span> <span class="s2">"example-1424936368"</span><span class="p">,</span>
+  <span class="s2">"payment_type"</span> <span class="p">:</span> <span class="s2">"credit_card"</span><span class="p">,</span>
+  <span class="s2">"transaction_time"</span> <span class="p">:</span> <span class="s2">"2015-02-26 14:39:33"</span><span class="p">,</span>
+  <span class="s2">"transaction_status"</span> <span class="p">:</span> <span class="s2">"capture"</span><span class="p">,</span>
+  <span class="s2">"fraud_status"</span> <span class="p">:</span> <span class="s2">"accept"</span><span class="p">,</span>
+  <span class="s2">"approval_code"</span> <span class="p">:</span> <span class="s2">"1424936374393"</span><span class="p">,</span>
+  <span class="s2">"signature_key"</span> <span class="p">:</span> <span class="s2">"2802a264cb978fbc59f631c68d120cbda8dc853f5dfdc52301c615cf4f14e7a0b09aa..."</span><span class="p">,</span>
+  <span class="s2">"bank"</span> <span class="p">:</span> <span class="s2">"bni"</span><span class="p">,</span>
+  <span class="s2">"gross_amount"</span> <span class="p">:</span> <span class="s2">"30000.00"</span>
+<span class="p">}</span>
+</code></pre>
+
+        <p><br /></p>
+
+        <h4 id="failed-respon">Failed respon</h4>
+
+<pre><code class="highlight json"><span class="p">{</span>
+  <span class="s2">"status_code"</span><span class="p">:</span> <span class="s2">"404"</span><span class="p">,</span>
+  <span class="s2">"status_message"</span><span class="p">:</span> <span class="s2">"The requested resource is not found"</span>
+<span class="p">}</span>
+</code></pre>
+
+        <p>For more information about the getStatus API, visit the following page: <a href="https://api-docs.midtrans.com/#get-transaction-status">API getStatus</a>.</p>
+
+        <h3 id="why-merchants-need-to-use-getstatus-process">Why merchants need to use getStatus process?</h3>
+
+        <p>Merchants need to use the getStatus process if the notification of http (s) submitted by Midtrans is considered late by the merchant.</p>
+
+      </div>
+      <!-- end of step 5-->
     </div>
     <!-- end of STEPS tab-content-->
   </div>

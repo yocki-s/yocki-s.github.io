@@ -382,7 +382,7 @@
             <b class="caret"></b>
             <ul class="child-menu">
               
-                <li class=""><a href="http://api-docs.midtrans.com">Referensi API</a></li>
+                <li class=""><a href="http://api-docs.midtrans.com">Referensi Core API</a></li>
               
                 <li class=""><a href="../reference/test.html">Testing Credential</a></li>
               
@@ -429,7 +429,15 @@
 
 <p><br /></p>
 
-<p>Jika Anda sudah selesai melakukan testing dan sudah siap untuk go live di Production Environment, ada beberapa hal yang perlu dipastikan:</p>
+<p>Jika Anda sudah selesai melakukan testing dan sudah siap untuk go live di mode production, ada beberapa hal yang perlu dipastikan:</p>
+
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"> Penting!</span>
+  <span class="sr-only">Warning!</span>
+<br />Pastikan metode pembayaran yang diinginkan sudah aktif pada mode production<br />
+1. Masuk ke halaman <a href="https://dashboard.midtrans.com/settings/snap_preference">berikut</a>, pilih tab "Payment Channels" untuk mengetahui metode pembayaran yang sudah aktif.<br />
+2. Hubungi Solutions Officer Anda atau <a href="mailto: support@midtrans.com">Midtrans Support</a> untuk pertanyaan lebih lanjut.
+</div>
 
 <div class="tab-content">
   <div class="tab-pane active" id="php">
@@ -567,7 +575,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
 
             <div class="pagination">
-              <ul><li class="left">« Sebelumnya: <a href="other_features.html">SNAP : Fitur Tambahan</a></li><li class="right">Selanjutnya: <a href="/idhttp://snap-docs.midtrans.com">SNAP : Snap API</a> »</li></ul>
+              <ul><li class="left">« Sebelumnya: <a href="other_features.html">SNAP : Fitur Tambahan</a></li><li class="right">Selanjutnya: <a href="http://snap-docs.midtrans.com">SNAP : Snap API</a> »</li></ul>
             </div>
           </div>
         </div><!--/span-->
